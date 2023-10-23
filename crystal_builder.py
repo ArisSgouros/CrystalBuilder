@@ -148,20 +148,16 @@ def ReadBasis(path_basis):
    basis_vectors.append(np.array([xz     , yz     , zhi-zlo]))
    return [basis_vectors, basis_orig, basis_atoms, atom_types]
 
-def LammpsBoxVectors(box_orig, box_vectors):
-   xlo = box_orig[0]
-   xhi = box_vectors[0][0]
-   ylo = box_orig[1]
-   yhi = box_vectors[1][1]
-   zlo = box_orig[2]
-   zhi = box_vectors[2][2]
-   xy  = box_vectors[1][0]
-   xz  = box_vectors[2][0]
-   yz  = box_vectors[2][1]
-   return xlo,xhi,ylo,yhi,zlo,zhi,xy,xz,yz
-
-def ExportLammpsDataFile(filename, box_vectors, box_orig, atom_types, bond_types, atoms, bonds):
-   xlo,xhi,ylo,yhi,zlo,zhi,xy,xz,yz = LammpsBoxVectors(box_orig, box_vectors)
+def ExportLammpsDataFile(filename, box_lmp, atom_types, bond_types, atoms, bonds):
+   xlo = box_lmp['xlo']
+   xhi = box_lmp['xhi']
+   ylo = box_lmp['ylo']
+   yhi = box_lmp['yhi']
+   zlo = box_lmp['zlo']
+   zhi = box_lmp['zhi']
+   xy  = box_lmp['xy']
+   xz  = box_lmp['xz']
+   yz  = box_lmp['yz']
    is_triclinic = (xy != 0.0 or xz != 0.0 or yz != 0.0)
 
    f = open(filename, 'w')
@@ -214,8 +210,16 @@ def ExportLammpsDataFile(filename, box_vectors, box_orig, atom_types, bond_types
 
    f.close()
 
-def ExportLammpsDumpFile(filename, box_vectors, box_orig, atoms):
-   xlo,xhi,ylo,yhi,zlo,zhi,xy,xz,yz = LammpsBoxVectors(box_orig, box_vectors)
+def ExportLammpsDumpFile(filename, box_lmp, atoms):
+   xlo = box_lmp['xlo']
+   xhi = box_lmp['xhi']
+   ylo = box_lmp['ylo']
+   yhi = box_lmp['yhi']
+   zlo = box_lmp['zlo']
+   zhi = box_lmp['zhi']
+   xy  = box_lmp['xy']
+   xz  = box_lmp['xz']
+   yz  = box_lmp['yz']
    is_triclinic = (xy != 0.0 or xz != 0.0 or yz != 0.0)
 
    fout = open(filename, 'w')
@@ -279,13 +283,21 @@ if __name__ == "__main__":
    print("   %-8s %-8s %-16s %-16s %-16s %-16s" % ("id", "type", "charge", "x", "y", "z"))
    for atom in basis_atoms:
       print("   %-8d %-8d %-16.9f %-16.9f %-16.9f %-16.9f" % (atom.aid, atom.type, atom.qq, atom.rr[0], atom.rr[1], atom.rr[2]))
-   print("box vectors..")
+   print("box vectors:")
    box_vectors = []
    box_orig = []
    for ii in range(kDim):
       box_vectors.append(basis_vectors[ii]*cells[ii])
       box_orig.append(basis_orig[ii]*cells[ii])
       print('   ', box_vectors[ii])
+   print("box vectors (lammps constraints):")
+   box_lmp = {'xlo':box_orig[0], 'xhi':box_vectors[0][0], \
+              'ylo':box_orig[1], 'yhi':box_vectors[1][1], \
+              'zlo':box_orig[1], 'zhi':box_vectors[1][1], \
+              'xy':box_vectors[1][0], 'xz':box_vectors[2][0], 'yz':box_vectors[2][1]}
+   for key in box_lmp:
+      print("   %-3s : %-16.9f" % (key, box_lmp[key]))
+
    print()
    print("Generating the atomic coordinates..")
    atoms = []
@@ -306,7 +318,7 @@ if __name__ == "__main__":
 
    print()
    print("Generating a lammps datafile with name " + file_pos + " ..")
-   ExportLammpsDataFile(file_pos, box_vectors, box_orig, atom_types, bond_types, atoms, bonds)
+   ExportLammpsDataFile(file_pos, box_lmp, atom_types, bond_types, atoms, bonds)
    print()
    print("Generating a lammps dump file with name " + file_dump + " ..")
-   ExportLammpsDumpFile(file_dump, box_vectors, box_orig, atoms)
+   ExportLammpsDumpFile(file_dump, box_lmp, atoms)
