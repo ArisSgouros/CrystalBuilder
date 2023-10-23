@@ -1,0 +1,36 @@
+path        :  in.basis_nacl.dat
+cells       :  [5, 5, 5]
+periodicity :  [1, 1, 1]
+calc_bond   :  False
+
+Reading the datafile: in.basis_nacl.dat
+
+basis origin:
+    [0. 0. 0.]
+basis vectors:
+    [5.6402 0.     0.    ]
+    [0.     5.6402 0.    ]
+    [0.     0.     5.6402]
+atom types:
+    1 22.989769 Na
+    2 35.453 Cl
+basis atoms:
+   id       type     charge           x                y                z               
+   1        1        1.000000000      0.000000000      0.000000000      0.000000000     
+   2        1        1.000000000      2.820100000      2.820100000      0.000000000     
+   3        1        1.000000000      0.000000000      2.820100000      2.820100000     
+   4        1        1.000000000      2.820100000      0.000000000      2.820100000     
+   5        2        -1.000000000     2.820100000      0.000000000      0.000000000     
+   6        2        -1.000000000     0.000000000      2.820100000      0.000000000     
+   7        2        -1.000000000     0.000000000      0.000000000      2.820100000     
+   8        2        -1.000000000     2.820100000      2.820100000      2.820100000     
+box vectors..
+    [28.201  0.     0.   ]
+    [ 0.    28.201  0.   ]
+    [ 0.     0.    28.201]
+
+Generating the atomic coordinates..
+
+Generating a lammps datafile with name o.nacl.dat ..
+
+Generating a lammps dump file with name o.nacl.lammpstrj ..

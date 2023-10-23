@@ -1,0 +1,32 @@
+path        :  in.basis_hbn.dat
+cells       :  [4, 4, 2]
+periodicity :  [1, 1, 1]
+calc_bond   :  False
+
+Reading the datafile: in.basis_hbn.dat
+
+basis origin:
+    [0. 0. 0.]
+basis vectors:
+    [2.504 0.    0.   ]
+    [1.252      2.16852761 0.        ]
+    [0.    0.    6.661]
+atom types:
+    1 10.811 B
+    2 14.0067 Ni
+basis atoms:
+   id       type     charge           x                y                z               
+   1        1        1.000000000      0.000000000      0.000000000      0.000000000     
+   2        2        1.000000000      1.252000000      0.722842537      0.000000000     
+   3        2        1.000000000      0.000000000      0.000000000      3.330500000     
+   4        1        1.000000000      1.252000000      0.722842537      3.330500000     
+box vectors..
+    [10.016  0.     0.   ]
+    [5.008      8.67411044 0.        ]
+    [ 0.     0.    13.322]
+
+Generating the atomic coordinates..
+
+Generating a lammps datafile with name o.hbn.dat ..
+
+Generating a lammps dump file with name o.hbn.lammpstrj ..
