@@ -1,8 +1,9 @@
 path        :  in.basis_nacl.dat
 cells       :  [5, 5, 5]
 periodicity :  [1, 1, 1]
-calc_bond   :  False
-
+calc_bond   :  True
+rc(s)       :  [2.8201]
+drc         :  0.1
 Reading the datafile: in.basis_nacl.dat
 
 basis origin:
@@ -24,12 +25,23 @@ basis atoms:
    6        2        -1.000000000     0.000000000      2.820100000      0.000000000     
    7        2        -1.000000000     0.000000000      0.000000000      2.820100000     
    8        2        -1.000000000     2.820100000      2.820100000      2.820100000     
-box vectors..
+box vectors:
     [28.201  0.     0.   ]
     [ 0.    28.201  0.   ]
     [ 0.     0.    28.201]
+box vectors (lammps constraints):
+   xlo : 0.000000000     
+   xhi : 28.201000000    
+   ylo : 0.000000000     
+   yhi : 28.201000000    
+   zlo : 0.000000000     
+   zhi : 28.201000000    
+   xy  : 0.000000000     
+   xz  : 0.000000000     
+   yz  : 0.000000000     
 
 Generating the atomic coordinates..
+Generating bonds..
 
 Generating a lammps datafile with name o.nacl.dat ..
 
