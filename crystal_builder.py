@@ -27,12 +27,14 @@ import os
 import math as m
 import numpy as np
 import argparse
+import copy as cp
 
 parser = argparse.ArgumentParser(description='Generate crystal structure')
 parser.add_argument('path_basis', type=str, help='Path of basis file (Lammps datafile)')
 parser.add_argument('cells', type=str, help='delimited list of replications')
 parser.add_argument('-periodic', '--periodic', type=str, default="1,1,1", help='delimited list of periodicity directions')
-parser.add_argument('-bond', '--bond', type=int, default=0, help='generate bonds?')
+parser.add_argument('-rc', '--rc', type=str, default="", help='list of cutoff radii of bonded interactions')
+parser.add_argument('-drc', '--drc', type=float, default=0.1, help='tolerance of bonded interactions')
 parser.add_argument('-file_pos', '--file_pos', type=str, default='pos.dat', help='Name of the Lammps data file')
 parser.add_argument('-file_dump', '--file_dump', type=str, default='dump.lammpstrj', help='Name of the Lammps dump file')
 
@@ -53,6 +55,17 @@ class Atom:
       self.type = type
       self.qq = qq
       self.rr = rr
+
+class BondType:
+   def __init__(self, type):
+      self.type = type
+
+class Bond:
+   def __init__(self, bid, iatom, jatom):
+      self.bid = bid
+      self.iatom = iatom
+      self.jatom = jatom
+      self.type = -1
 
 # Parse basis files subject to the constraint coordinate system used in Lammps [see https://docs.lammps.org/Howto_triclinic.html]
 def ReadBasis(path_basis):
@@ -120,7 +133,6 @@ def ReadBasis(path_basis):
       sys.exit()
    #
    # Read the Atoms section
-   #try:
    imol = 1
    basis_atoms   = []
    try:
@@ -194,7 +206,10 @@ def ExportLammpsDataFile(filename, box_lmp, atom_types, bond_types, atoms, bonds
       f.write('Bonds\n')
       f.write('\n')
       for bond in bonds:
-         f.write("%d %d %d %d\n" % (bond.id, bond.type, bond.i, bond.j ))
+         iatom = bond.iatom
+         jatom = bond.jatom
+         btype_str = UniquePairType(iatom.type, jatom.type)
+         f.write("%d %d %d %d # %s\n" % (bond.bid, bond.type, iatom.aid, jatom.aid, btype_str))
    #if n_angles:
    #   f.write('\n')
    #   f.write('Angles\n')
@@ -251,12 +266,68 @@ def ExportLammpsDumpFile(filename, box_lmp, atoms):
 
    fout.close()
 
+def MinImag(rr, lx, ly, lz, xy, xz, yz, periodicity):
+   rr_imag = np.array([ rr[0] - xy*round(rr[1]/ly) - xz*round(rr[2]/lz), \
+                        rr[1] - yz*round(rr[2]/lz), \
+                        rr[2] ])
+   rr_imag[0] -= int(periodicity[0])*lx*round(rr_imag[0]/lx)
+   rr_imag[1] -= int(periodicity[1])*ly*round(rr_imag[1]/ly)
+   rr_imag[2] -= int(periodicity[2])*lz*round(rr_imag[2]/lz)
+   return rr_imag
+
+def UniquePairType(itype, jtype):
+   sort_types = sorted(set({itype, jtype}))
+   return str(sort_types[0])+" "+str(sort_types[1])
+
+def CalculateBonds(atoms, box_lmp, periodicity, rc_list, drc):
+   lx = box_lmp['xhi'] - box_lmp['xlo']
+   ly = box_lmp['yhi'] - box_lmp['ylo']
+   lz = box_lmp['zhi'] - box_lmp['zlo']
+   xy  = box_lmp['xy']
+   xz  = box_lmp['xz']
+   yz  = box_lmp['yz']
+
+   bonds = []
+   bond_types = {}
+
+   natom = len(atoms)
+   bid = 1
+
+   for rc in rc_list:
+      rmin2 = pow(rc - drc, 2)
+      rmax2 = pow(rc + drc, 2)
+      for ii in range(natom):
+         ri = atoms[ii].rr
+         iid = atoms[ii].aid
+         for jj in range(ii+1, natom):
+            rj = atoms[jj].rr
+            jid = atoms[ii].aid
+            rij = rj - ri
+            rij = MinImag(rij, lx, ly, lz, xy, xz, yz, periodicity)
+            rij2 = np.dot(rij, rij)
+            if rmin2 < rij2 < rmax2:
+               bonds.append(Bond(bid, atoms[ii], atoms[jj]))
+               bid += 1
+
+   # determine the individual bond types
+   itype = 1
+   for bond in bonds:
+      btype_str = UniquePairType(bond.iatom.type, bond.jatom.type)
+      if not bond_types.get(btype_str):
+         bond_types[btype_str] = BondType(itype)
+         itype += 1
+      bond.type = bond_types[btype_str].type
+
+   return bonds, bond_types
+
 if __name__ == "__main__":
    args = parser.parse_args()
    path_basis = args.path_basis
    cells = [int(item) for item in args.cells.split(',')]
    periodicity = [int(item) for item in args.periodic.split(',')]
-   calc_bond = bool(args.bond)
+   rc_list = [float(item) for item in args.rc.split(',')]
+   drc = args.drc
+   calc_bond = any(abs(i) > kTol for i in rc_list)
 
    file_pos = args.file_pos
    file_dump = args.file_dump
@@ -265,7 +336,8 @@ if __name__ == "__main__":
    print('cells       : ', cells)
    print('periodicity : ', periodicity)
    print('calc_bond   : ', calc_bond)
-   print()
+   print('rc(s)       : ', rc_list)
+   print('drc         : ', drc)
 
    print("Reading the datafile:", path_basis)
    basis_vectors, basis_orig, basis_atoms, atom_types = ReadBasis(path_basis)
@@ -293,7 +365,7 @@ if __name__ == "__main__":
    print("box vectors (lammps constraints):")
    box_lmp = {'xlo':box_orig[0], 'xhi':box_vectors[0][0], \
               'ylo':box_orig[1], 'yhi':box_vectors[1][1], \
-              'zlo':box_orig[1], 'zhi':box_vectors[1][1], \
+              'zlo':box_orig[2], 'zhi':box_vectors[2][2], \
               'xy':box_vectors[1][0], 'xz':box_vectors[2][0], 'yz':box_vectors[2][1]}
    for key in box_lmp:
       print("   %-3s : %-16.9f" % (key, box_lmp[key]))
@@ -313,8 +385,8 @@ if __name__ == "__main__":
    bonds = []
    bond_types = []
    if calc_bond:
-      print("Bonds not supported yet")
-      sys.exit()
+      print("Generating bonds..")
+      bonds, bond_types = CalculateBonds(atoms, box_lmp, periodicity, rc_list, drc)
 
    print()
    print("Generating a lammps datafile with name " + file_pos + " ..")
