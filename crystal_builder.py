@@ -276,7 +276,7 @@ def MinImag(rr, lx, ly, lz, xy, xz, yz, periodicity):
    return rr_imag
 
 def UniquePairType(itype, jtype):
-   sort_types = sorted(set({itype, jtype}))
+   sort_types = sorted([itype, jtype])
    return str(sort_types[0])+" "+str(sort_types[1])
 
 def CalculateBonds(atoms, box_lmp, periodicity, rc_list, drc):
