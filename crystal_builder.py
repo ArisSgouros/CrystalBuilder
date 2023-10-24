@@ -29,7 +29,7 @@ import numpy as np
 import argparse
 import copy as cp
 from module.aux import UniquePairType
-from module.export import ExportLammpsDataFile, ExportLammpsDumpFile
+from module.export import ExportLammpsDataFile, ExportLammpsDumpFile, ExportXyzFile
 from module.read import ReadBasis
 from module.net_types import Atom, Bond, AtomType, BondType
 from module.calculate_bond import MinImag, CalculateBonds
@@ -42,6 +42,7 @@ parser.add_argument('-rc', '--rc', type=str, default="", help='list of cutoff ra
 parser.add_argument('-drc', '--drc', type=float, default=0.1, help='tolerance of bonded interactions')
 parser.add_argument('-file_pos', '--file_pos', type=str, default='pos.dat', help='Name of the Lammps data file')
 parser.add_argument('-file_dump', '--file_dump', type=str, default='dump.lammpstrj', help='Name of the Lammps dump file')
+parser.add_argument('-file_xyz', '--file_xyz', type=str, default='dump.xyz', help='Name of the xyz file')
 
 # constants
 kDim = 3
@@ -58,6 +59,7 @@ if __name__ == "__main__":
 
    file_pos = args.file_pos
    file_dump = args.file_dump
+   file_xyz  = args.file_xyz
 
    print('path        : ', path_basis)
    print('cells       : ', cells)
@@ -121,3 +123,6 @@ if __name__ == "__main__":
    print()
    print("Generating a lammps dump file with name " + file_dump + " ..")
    ExportLammpsDumpFile(file_dump, box_lmp, atoms)
+   print()
+   print("Generating a XYZ dump file with name " + file_xyz + " ..")
+   ExportXyzFile(file_xyz, box_lmp, atoms)

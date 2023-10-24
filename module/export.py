@@ -135,3 +135,21 @@ def ExportLammpsDumpFile(filename, box_lmp, atoms):
       fout.write("%-d %-d %-d %-f %-f %-f\n" % (iat.aid, iat.molid, iat.type, iat.rr[0], iat.rr[1], iat.rr[2]))
 
    fout.close()
+
+def ExportXyzFile(filename, box_lmp, atoms):
+   xlo = box_lmp['xlo']
+   xhi = box_lmp['xhi']
+   ylo = box_lmp['ylo']
+   yhi = box_lmp['yhi']
+   zlo = box_lmp['zlo']
+   zhi = box_lmp['zhi']
+   xy  = box_lmp['xy']
+   xz  = box_lmp['xz']
+   yz  = box_lmp['yz']
+
+   fout = open(filename, 'w')
+   fout.write("%-8d\n" % len(atoms))
+   fout.write("%-16.9f %-16.9f %-16.9f %-16.9f %-16.9f %-16.9f %-16.9f %-16.9f %-16.9f \n" % (xlo, xhi, ylo, yhi, zlo, zhi, xy, xz, yz) )
+   for iat in atoms:
+      fout.write("%-d %-d %-f %-f %-f\n" % (iat.aid, iat.type, iat.rr[0], iat.rr[1], iat.rr[2]))
+   fout.close()
