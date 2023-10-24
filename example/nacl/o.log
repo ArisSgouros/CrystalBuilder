@@ -46,3 +46,5 @@ Generating bonds..
 Generating a lammps datafile with name o.nacl.dat ..
 
 Generating a lammps dump file with name o.nacl.lammpstrj ..
+
+Generating a XYZ dump file with name o.nacl.xyz ..

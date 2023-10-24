@@ -42,3 +42,5 @@ Generating bonds..
 Generating a lammps datafile with name o.hbn.dat ..
 
 Generating a lammps dump file with name o.hbn.lammpstrj ..
+
+Generating a XYZ dump file with name o.hbn.xyz ..

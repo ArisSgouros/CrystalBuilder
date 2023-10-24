@@ -41,3 +41,5 @@ Generating bonds..
 Generating a lammps datafile with name o.ni.dat ..
 
 Generating a lammps dump file with name o.ni.lammpstrj ..
+
+Generating a XYZ dump file with name o.ni.xyz ..
