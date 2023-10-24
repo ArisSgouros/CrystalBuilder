@@ -1,0 +1,43 @@
+path        :  in.basis_ni.dat
+cells       :  [4, 4, 4]
+periodicity :  [1, 1, 1]
+calc_bond   :  True
+rc(s)       :  [2.49]
+drc         :  0.1
+Reading the datafile: in.basis_ni.dat
+
+basis origin:
+    [0. 0. 0.]
+basis vectors:
+    [3.52 0.   0.  ]
+    [0.   3.52 0.  ]
+    [0.   0.   3.52]
+atom types:
+    1 58.6934 Ni
+basis atoms:
+   id       type     charge           x                y                z               
+   1        1        0.000000000      0.000000000      0.000000000      0.000000000     
+   2        1        0.000000000      1.760000000      1.760000000      0.000000000     
+   3        1        0.000000000      0.000000000      1.760000000      1.760000000     
+   4        1        0.000000000      1.760000000      0.000000000      1.760000000     
+box vectors:
+    [14.08  0.    0.  ]
+    [ 0.   14.08  0.  ]
+    [ 0.    0.   14.08]
+box vectors (lammps constraints):
+   xlo : 0.000000000     
+   xhi : 14.080000000    
+   ylo : 0.000000000     
+   yhi : 14.080000000    
+   zlo : 0.000000000     
+   zhi : 14.080000000    
+   xy  : 0.000000000     
+   xz  : 0.000000000     
+   yz  : 0.000000000     
+
+Generating the atomic coordinates..
+Generating bonds..
+
+Generating a lammps datafile with name o.ni.dat ..
+
+Generating a lammps dump file with name o.ni.lammpstrj ..
