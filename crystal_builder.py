@@ -77,6 +77,11 @@ if __name__ == "__main__":
    print("basis vectors:")
    for basis_vector in basis_vectors:
       print('   ', basis_vector)
+   basis_volume = np.linalg.norm(np.dot(np.cross(basis_vectors[0], basis_vectors[1]), basis_vectors[2]))
+   print("basis volume:")
+   print('   ', basis_volume)
+   print("basis density:")
+   print('   ', len(basis_atoms) / basis_volume)
    print("atom types:")
    for atom_type in atom_types.values():
       print('   ',atom_type.type, atom_type.mass, atom_type.name)
