@@ -12,6 +12,10 @@ basis vectors:
     [3.52 0.   0.  ]
     [0.   3.52 0.  ]
     [0.   0.   3.52]
+basis volume:
+    43.614208
+basis density:
+    0.09171323253193088
 atom types:
     1 58.6934 Ni
 basis atoms:
