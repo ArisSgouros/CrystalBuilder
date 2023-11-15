@@ -151,5 +151,5 @@ def ExportXyzFile(filename, box_lmp, atoms):
    fout.write("%-8d\n" % len(atoms))
    fout.write("%-16.9f %-16.9f %-16.9f %-16.9f %-16.9f %-16.9f %-16.9f %-16.9f %-16.9f \n" % (xlo, xhi, ylo, yhi, zlo, zhi, xy, xz, yz) )
    for iat in atoms:
-      fout.write("%-d %-d %-f %-f %-f\n" % (iat.aid, iat.type, iat.rr[0], iat.rr[1], iat.rr[2]))
+      fout.write("%-d %-f %-f %-f\n" % (iat.type, iat.rr[0], iat.rr[1], iat.rr[2]))
    fout.close()
