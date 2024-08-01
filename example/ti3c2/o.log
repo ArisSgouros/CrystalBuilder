@@ -1,0 +1,55 @@
+path        :  in.basis_ti3c2.dat
+cells       :  [62, 12, 2]
+periodicity :  [1, 1, 1]
+calc_bond   :  False
+rc(s)       :  [0.0]
+drc         :  0.1
+Reading the datafile: in.basis_ti3c2.dat
+
+basis origin:
+    [0. 0. 0.]
+basis vectors:
+    [3.098 0.    0.   ]
+    [0.       5.365893 0.      ]
+    [ 0.   0.  18.8]
+basis volume:
+    312.5224864632
+basis density:
+    0.03199769755184485
+atom types:
+    1 47.867 Ti
+    2 12.011 C
+basis atoms:
+   id       type     charge           x                y                z               
+   1        1        0.000000000      0.000000000      0.000000000      9.480000000     
+   2        1        0.000000000      1.549000000      0.894315570      7.164984000     
+   3        2        0.000000000      1.549000000      0.894315570      10.795824000    
+   4        1        0.000000000      0.000000000      1.788631130      11.795016000    
+   5        2        0.000000000      0.000000000      1.788631130      8.164176000     
+   6        1        0.000000000      1.549000000      2.682946700      9.480000000     
+   7        1        0.000000000      0.000000000      3.577262270      7.164984000     
+   8        2        0.000000000      0.000000000      3.577262270      10.795824000    
+   9        1        0.000000000      1.549000000      4.471577830      11.795016000    
+   10       2        0.000000000      1.549000000      4.471577830      8.164176000     
+box vectors:
+    [192.076   0.      0.   ]
+    [ 0.       64.390716  0.      ]
+    [ 0.   0.  37.6]
+box vectors (lammps constraints):
+   xlo : 0.000000000     
+   xhi : 192.076000000   
+   ylo : 0.000000000     
+   yhi : 64.390716000    
+   zlo : 0.000000000     
+   zhi : 37.600000000    
+   xy  : 0.000000000     
+   xz  : 0.000000000     
+   yz  : 0.000000000     
+
+Generating the atomic coordinates..
+
+Generating a lammps datafile with name o.ti3c2_62x12x2.dat ..
+
+Generating a lammps dump file with name o.ti3c2_62x12x2.lammpstrj ..
+
+Generating a XYZ dump file with name o.ti3c2_62x12x2.xyz ..

@@ -1,0 +1,19 @@
+mol modstyle 0 0 VDW 1.000000 12.000000
+display depthcue off
+
+
+
+set sel [atomselect top "type 1"]
+$sel set radius 1.1
+$sel delete
+set sel [atomselect top "type 2"]
+$sel set radius 0.6
+$sel delete
+
+
+color Display Background white
+color Name 2 iceblue
+color Name 1 orange
+display shadows on
+display ambientocclusion on
+
