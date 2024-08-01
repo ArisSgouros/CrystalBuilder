@@ -26,7 +26,6 @@ import sys
 import os
 import math as m
 import numpy as np
-from module.aux import UniquePairType
 from module.net_types import Atom, Bond, AtomType, BondType
 
 def MinImag(rr, lx, ly, lz, xy, xz, yz, periodicity):
@@ -47,7 +46,6 @@ def CalculateBonds(atoms, box_lmp, periodicity, rc_list, drc):
    yz  = box_lmp['yz']
 
    bonds = []
-   bond_types = {}
 
    natom = len(atoms)
    bid = 1
@@ -66,15 +64,8 @@ def CalculateBonds(atoms, box_lmp, periodicity, rc_list, drc):
             rij2 = np.dot(rij, rij)
             if rmin2 < rij2 < rmax2:
                bonds.append(Bond(bid, atoms[ii], atoms[jj]))
+               atoms[ii].neigh.append(atoms[jj])
+               atoms[jj].neigh.append(atoms[ii])
                bid += 1
 
-   # determine the individual bond types
-   itype = 1
-   for bond in bonds:
-      btype_str = UniquePairType(bond.iatom.type, bond.jatom.type)
-      if not bond_types.get(btype_str):
-         bond_types[btype_str] = BondType(itype)
-         itype += 1
-      bond.type = bond_types[btype_str].type
-
-   return bonds, bond_types
+   return bonds

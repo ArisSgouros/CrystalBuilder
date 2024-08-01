@@ -40,6 +40,7 @@ class Atom:
       self.type = type
       self.qq = qq
       self.rr = rr
+      self.neigh = []
 
 class BondType:
    def __init__(self, type):
@@ -50,4 +51,29 @@ class Bond:
       self.bid = bid
       self.iatom = iatom
       self.jatom = jatom
+      self.type = -1
+
+class AngleType:
+   def __init__(self, type):
+      self.type = type
+
+class Angle:
+   def __init__(self, bid, iatom, jatom, katom):
+      self.bid = bid
+      self.iatom = iatom
+      self.jatom = jatom
+      self.katom = katom
+      self.type = -1
+
+class DihedType:
+   def __init__(self, type):
+      self.type = type
+
+class Dihed:
+   def __init__(self, bid, iatom, jatom, katom, latom):
+      self.bid = bid
+      self.iatom = iatom
+      self.jatom = jatom
+      self.katom = katom
+      self.latom = latom
       self.type = -1

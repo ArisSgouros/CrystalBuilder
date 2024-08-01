@@ -1,7 +1,7 @@
 ###############################################################################
 # MIT License
 #
-# Copyright (c) 2023 ArisSgouros
+# Copyright (c) 2024 ArisSgouros
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -26,18 +26,33 @@ import sys
 import os
 import math as m
 import numpy as np
-import argparse
-import copy as cp
+from module.net_types import Atom, AtomType, Angle
 
-def UniqueType(chem_list):
-   aux_list = [str(chem) for chem in chem_list]
+def is_list_unique(list_in):
+   return len(set(list_in)) == len(list_in)
 
-   # bond, angle chems
-   if aux_list[0] > aux_list[-1]:
-      aux_list.reverse()
+def CalculateAngles(atoms):
+   angles = []
 
-   # dihedral chems
-   if len(aux_list) == 4 and (aux_list[0] == aux_list[3] and aux_list[1] > aux_list[2]):
-      aux_list.reverse()
+   # populate the angle list
+   id_ = 1
+   for atom in atoms:
+      atom.exist = False
+   for iatom in atoms:
+      for jatom in iatom.neigh:
+         # angle ijk
+         if jatom.exist: continue
+         for katom in jatom.neigh:
+            angle = [iatom, jatom, katom]
+            if katom.exist or not is_list_unique(angle): continue
+            angles.append(Angle(id_, iatom, jatom, katom))
+            id_ += 1
+         # angle jik
+         for katom in iatom.neigh:
+            angle = [jatom, iatom, katom]
+            if katom.exist or jatom.aid >= katom.aid or not is_list_unique(angle): continue
+            angles.append(Angle(id_, jatom, iatom, katom))
+            id_ += 1
+      iatom.exist = True
 
-   return " ".join(aux_list)
+   return angles

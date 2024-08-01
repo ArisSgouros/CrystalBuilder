@@ -1,7 +1,7 @@
 ###############################################################################
 # MIT License
 #
-# Copyright (c) 2023 ArisSgouros
+# Copyright (c) 2024 ArisSgouros
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -26,18 +26,37 @@ import sys
 import os
 import math as m
 import numpy as np
-import argparse
-import copy as cp
+from module.net_types import Atom, AtomType, Dihed
 
-def UniqueType(chem_list):
-   aux_list = [str(chem) for chem in chem_list]
+def is_list_unique(list_in):
+   return len(set(list_in)) == len(list_in)
 
-   # bond, angle chems
-   if aux_list[0] > aux_list[-1]:
-      aux_list.reverse()
+def CalculateDiheds(atoms):
+   diheds = []
 
-   # dihedral chems
-   if len(aux_list) == 4 and (aux_list[0] == aux_list[3] and aux_list[1] > aux_list[2]):
-      aux_list.reverse()
+   # populate the dihed list
+   id_ = 1
+   for atom in atoms:
+      atom.exist = False
+   for iatom in atoms:
+      for jatom in iatom.neigh:
+         # dihed ijkl
+         if jatom.exist: continue
+         for katom in jatom.neigh:
+            if katom.exist or katom == iatom: continue
+            for latom in katom.neigh:
+               dihed = [iatom, jatom, katom, latom]
+               if latom.exist or not is_list_unique(dihed): continue
+               diheds.append(Dihed(id_, iatom, jatom, katom, latom))
+               id_ += 1
+         # dihed jikl
+         for katom in iatom.neigh:
+            if katom.exist or katom == jatom: continue
+            for latom in katom.neigh:
+               dihed = [jatom, iatom, katom, latom]
+               if latom.exist or not is_list_unique(dihed): continue
+               diheds.append(Dihed(id_, jatom, iatom, katom, latom))
+               id_ += 1
+      iatom.exist = True
 
-   return " ".join(aux_list)
+   return diheds
