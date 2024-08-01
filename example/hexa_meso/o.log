@@ -1,8 +1,8 @@
 path        :  in.basis_hexa.dat
 cells       :  [10, 2, 1]
 periodicity :  [1, 1, 1]
-calc_bond   :  False
-rc(s)       :  [0.0]
+calc_bond   :  True
+rc(s)       :  [1.0]
 drc         :  0.1
 Reading the datafile: in.basis_hexa.dat
 
@@ -40,6 +40,7 @@ box vectors (lammps constraints):
    yz  : 0.000000000     
 
 Generating the atomic coordinates..
+Generating bonds..
 
 Generating a lammps datafile with name o.hexa.dat ..
 
