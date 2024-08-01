@@ -41,6 +41,9 @@ box vectors (lammps constraints):
 
 Generating the atomic coordinates..
 Generating bonds..
+  1536
+Generating bond types..
+  1
 
 Generating a lammps datafile with name o.ni.dat ..
 

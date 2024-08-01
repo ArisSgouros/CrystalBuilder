@@ -1,0 +1,60 @@
+path        :  in.basis_graphene.dat
+cells       :  [20, 10, 1]
+periodicity :  [1, 1, 1]
+calc_bond   :  True
+rc(s)       :  [1.5]
+drc         :  0.1
+Reading the datafile: in.basis_graphene.dat
+
+basis origin:
+    [0. 0. 0.]
+basis vectors:
+    [2.45951215 0.         0.        ]
+    [0.   4.26 0.  ]
+    [ 0.  0. 20.]
+basis volume:
+    209.55043492439998
+basis density:
+    0.01908848340707615
+atom types:
+    1 1.0 C
+basis atoms:
+   id       type     charge           x                y                z               
+   1        1        1.000000000      1.229756073      0.000000000      0.000000000     
+   2        1        1.000000000      0.000000000      0.710000000      0.000000000     
+   3        1        1.000000000      0.000000000      2.130000000      0.000000000     
+   4        1        1.000000000      1.229756073      2.840000000      0.000000000     
+box vectors:
+    [49.19024294  0.          0.        ]
+    [ 0.  42.6  0. ]
+    [ 0.  0. 20.]
+box vectors (lammps constraints):
+   xlo : 0.000000000     
+   xhi : 49.190242940    
+   ylo : 0.000000000     
+   yhi : 42.600000000    
+   zlo : 0.000000000     
+   zhi : 20.000000000    
+   xy  : 0.000000000     
+   xz  : 0.000000000     
+   yz  : 0.000000000     
+
+Generating the atomic coordinates..
+Generating bonds..
+  1200
+Generating bond types..
+  1
+Generating angles..
+  2400
+Generating angle types..
+  1
+Generating diheds..
+  4800
+Generating dihed types..
+  1
+
+Generating a lammps datafile with name o.20_10.dat ..
+
+Generating a lammps dump file with name o.20_10.lammpstrj ..
+
+Generating a XYZ dump file with name o.20_10.xyz ..

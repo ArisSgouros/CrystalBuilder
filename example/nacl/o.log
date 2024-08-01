@@ -46,6 +46,9 @@ box vectors (lammps constraints):
 
 Generating the atomic coordinates..
 Generating bonds..
+  3000
+Generating bond types..
+  1
 
 Generating a lammps datafile with name o.nacl.dat ..
 

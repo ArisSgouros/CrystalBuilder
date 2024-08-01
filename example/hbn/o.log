@@ -42,6 +42,17 @@ box vectors (lammps constraints):
 
 Generating the atomic coordinates..
 Generating bonds..
+  192
+Generating bond types..
+  1
+Generating angles..
+  384
+Generating angle types..
+  2
+Generating diheds..
+  768
+Generating dihed types..
+  1
 
 Generating a lammps datafile with name o.hbn.dat ..
 
