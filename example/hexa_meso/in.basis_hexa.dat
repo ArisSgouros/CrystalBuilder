@@ -1,0 +1,26 @@
+# LAMMPS data file l_bond = 1.44568507405082 Angstrom, interlayer distance = 3.3305 Angstrom
+
+4 atoms
+0 bonds
+0 angles
+0 dihedrals
+
+1 atom types
+0 bond types
+0 angle types
+0 dihedral types
+
+0	1.732050808	xlo xhi
+0	3.0	ylo yhi
+0	6.6610	zlo zhi
+
+Masses
+
+1      1 # B
+
+Atoms
+
+1	1	1	1	0.86602	0	0.0
+2	1	1	1	0.0	0.5	0.0
+3	1	1	1	0.0	1.5	0.0
+4	1	1	1	0.86602	2.0	0.0
