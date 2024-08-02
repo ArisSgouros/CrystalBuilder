@@ -58,7 +58,6 @@ def CalculateBonds(atoms, box_lmp, periodicity, rc_list, drc):
          iid = atoms[ii].aid
          for jj in range(ii+1, natom):
             rj = atoms[jj].rr
-            jid = atoms[ii].aid
             rij = rj - ri
             rij = MinImag(rij, lx, ly, lz, xy, xz, yz, periodicity)
             rij2 = np.dot(rij, rij)

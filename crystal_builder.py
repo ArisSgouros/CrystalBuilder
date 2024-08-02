@@ -32,7 +32,8 @@ from module.aux import UniqueType
 from module.export import ExportLammpsDataFile, ExportLammpsDumpFile, ExportXyzFile
 from module.read import ReadBasis
 from module.net_types import Atom, Bond, AtomType, BondType, AngleType, DihedType
-from module.calculate_bond import MinImag, CalculateBonds
+from module.calculate_bond import CalculateBonds
+from module.calculate_bond_gridxy import CalculateBondsGridXy
 from module.calculate_angle import CalculateAngles
 from module.calculate_dihed import CalculateDiheds
 
@@ -47,6 +48,7 @@ parser.add_argument('-file_dump', '--file_dump', type=str, default='dump.lammpst
 parser.add_argument('-file_xyz', '--file_xyz', type=str, default='dump.xyz', help='Name of the xyz file')
 parser.add_argument('-angle', '--angle', type=int, default='0', help='Calculate angles')
 parser.add_argument('-dihed', '--dihed', type=int, default='0', help='Calculate dihedrals')
+parser.add_argument('-grid', '--grid', type=str, default='none', help='Enable grid for neighbor lists')
 
 # constants
 kDim = 3
@@ -62,6 +64,10 @@ if __name__ == "__main__":
    calc_bond = any(abs(i) > kTol for i in rc_list)
    calc_angle = args.angle
    calc_dihed = args.dihed
+   grid_type = args.grid
+
+   if grid_type != 'none':
+     print("Warning: grid does not work with triclinic cells")
 
    file_pos = args.file_pos
    file_dump = args.file_dump
@@ -127,7 +133,10 @@ if __name__ == "__main__":
    bond_types = {}
    if calc_bond:
       print("Generating bonds..")
-      bonds = CalculateBonds(atoms, box_lmp, periodicity, rc_list, drc)
+      if grid_type == 'none':
+        bonds = CalculateBonds(atoms, box_lmp, periodicity, rc_list, drc)
+      elif grid_type == 'xy':
+        bonds = CalculateBondsGridXy(atoms, box_lmp, periodicity, rc_list, drc)
       print("  %d" % (len(bonds)))
 
       print("Generating bond types..")
