@@ -7,4 +7,5 @@ python ../../crystal_builder.py \
   --rc="1.0" \
   --drc=0.1 \
   --angle=1 \
-  --dihed=1 # > o.log
+  --dihed=1 \
+  > o.log
