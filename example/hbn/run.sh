@@ -6,6 +6,7 @@ python ../../crystal_builder.py \
   --file_xyz="o.hbn.xyz" \
   --rc="1.44568507405082" \
   --drc=0.1 \
+  --bond=1 \
   --angle=1 \
   --dihed=1 \
    > o.log
