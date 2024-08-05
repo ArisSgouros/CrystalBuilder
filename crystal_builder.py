@@ -46,6 +46,7 @@ parser.add_argument('-drc', '--drc', type=float, default=0.1, help='tolerance of
 parser.add_argument('-file_pos', '--file_pos', type=str, default='pos.dat', help='Name of the Lammps data file')
 parser.add_argument('-file_dump', '--file_dump', type=str, default='dump.lammpstrj', help='Name of the Lammps dump file')
 parser.add_argument('-file_xyz', '--file_xyz', type=str, default='dump.xyz', help='Name of the xyz file')
+parser.add_argument('-bond', '--bond', type=int, default='0', help='Calculate bonds')
 parser.add_argument('-angle', '--angle', type=int, default='0', help='Calculate angles')
 parser.add_argument('-dihed', '--dihed', type=int, default='0', help='Calculate dihedrals')
 parser.add_argument('-grid', '--grid', type=str, default='none', help='Enable grid for neighbor lists')
@@ -61,7 +62,7 @@ if __name__ == "__main__":
    periodicity = [int(item) for item in args.periodic.split(',')]
    rc_list = [float(item) for item in args.rc.split(',')]
    drc = args.drc
-   calc_bond = any(abs(i) > kTol for i in rc_list)
+   calc_bond = args.bond
    calc_angle = args.angle
    calc_dihed = args.dihed
    grid_type = args.grid
