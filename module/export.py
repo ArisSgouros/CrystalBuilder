@@ -96,7 +96,7 @@ def ExportLammpsDataFile(filename, box_lmp, atom_types, bond_types, angle_types,
       f.write('Dihedrals\n')
       f.write('\n')
       for dihed in diheds:
-         type_str = UniqueType([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type])
+         type_str = UniqueType([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type]) + ' ' + dihed.orient
          f.write("%d %d %d %d %d %d # %s\n" % (dihed.bid, dihed.type, dihed.iatom.aid, dihed.jatom.aid, dihed.katom.aid, dihed.latom.aid, type_str ))
    f.close()
 

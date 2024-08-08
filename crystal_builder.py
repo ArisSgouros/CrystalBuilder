@@ -35,7 +35,7 @@ from module.net_types import Atom, Bond, AtomType, BondType, AngleType, DihedTyp
 from module.calculate_bond import CalculateBonds
 from module.calculate_bond_gridxy import CalculateBondsGridXy
 from module.calculate_angle import CalculateAngles
-from module.calculate_dihed import CalculateDiheds
+from module.calculate_dihed import CalculateDiheds, DifferentiateCisTrans
 
 parser = argparse.ArgumentParser(description='Generate crystal structure')
 parser.add_argument('path_basis', type=str, help='Path of basis file (Lammps datafile)')
@@ -49,6 +49,7 @@ parser.add_argument('-file_xyz', '--file_xyz', type=str, default='dump.xyz', hel
 parser.add_argument('-bond', '--bond', type=int, default='0', help='Calculate bonds')
 parser.add_argument('-angle', '--angle', type=int, default='0', help='Calculate angles')
 parser.add_argument('-dihed', '--dihed', type=int, default='0', help='Calculate dihedrals')
+parser.add_argument('-cis_trans', '--cis_trans', type=int, default='0', help='Differentiate cis/trans dihedrals')
 parser.add_argument('-grid', '--grid', type=str, default='none', help='Enable grid for neighbor lists')
 
 # constants
@@ -65,6 +66,7 @@ if __name__ == "__main__":
    calc_bond = args.bond
    calc_angle = args.angle
    calc_dihed = args.dihed
+   calc_cis_trans = args.cis_trans
    grid_type = args.grid
 
    if grid_type != 'none':
@@ -174,10 +176,13 @@ if __name__ == "__main__":
       diheds = CalculateDiheds(atoms)
       print("  %d" % (len(diheds)))
 
+      if calc_cis_trans:
+         DifferentiateCisTrans(diheds, [box_vectors[0][0], box_vectors[1][1], box_vectors[2][2]])
+
       print("Generating dihed types..")
       itype = 1
       for dihed in diheds:
-         type_str = UniqueType([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type])
+         type_str = UniqueType([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type]) + dihed.orient
          if not dihed_types.get(type_str):
             dihed_types[type_str] = DihedType(itype)
             itype += 1

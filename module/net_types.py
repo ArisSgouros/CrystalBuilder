@@ -77,3 +77,4 @@ class Dihed:
       self.katom = katom
       self.latom = latom
       self.type = -1
+      self.orient = ''
