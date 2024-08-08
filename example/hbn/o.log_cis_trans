@@ -52,10 +52,10 @@ Generating angle types..
 Generating diheds..
   768
 Generating dihed types..
-  1
+  2
 
-Generating a lammps datafile with name o.hbn.dat ..
+Generating a lammps datafile with name o.hbn_cis_trans.dat ..
 
-Generating a lammps dump file with name o.hbn.lammpstrj ..
+Generating a lammps dump file with name o.hbn_cis_trans.lammpstrj ..
 
-Generating a XYZ dump file with name o.hbn.xyz ..
+Generating a XYZ dump file with name o.hbn_cis_trans.xyz ..
