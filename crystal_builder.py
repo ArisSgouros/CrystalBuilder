@@ -182,9 +182,19 @@ if __name__ == "__main__":
       print("Generating dihed types..")
       itype = 1
       for dihed in diheds:
+         if dihed.orient == 'cis':
+            continue
          type_str = UniqueType([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type]) + dihed.orient
          if not dihed_types.get(type_str):
             dihed_types[type_str] = DihedType(itype)
+            print(dihed.orient, itype)
+            itype += 1
+         dihed.type = dihed_types[type_str].type
+      for dihed in diheds:
+         type_str = UniqueType([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type]) + dihed.orient
+         if not dihed_types.get(type_str):
+            dihed_types[type_str] = DihedType(itype)
+            print(dihed.orient, itype)
             itype += 1
          dihed.type = dihed_types[type_str].type
       print("  %d" % (len(dihed_types)))
