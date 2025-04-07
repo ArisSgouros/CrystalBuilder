@@ -2,7 +2,7 @@ Warning: grid does not work with triclinic cells
 path        :  in.basis_graphene.dat
 cells       :  [20, 10, 1]
 periodicity :  [1, 1, 1]
-calc_bond   :  True
+calc_bond   :  1
 rc(s)       :  [1.5]
 drc         :  0.1
 Reading the datafile: in.basis_graphene.dat

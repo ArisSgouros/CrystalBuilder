@@ -1,7 +1,7 @@
 path        :  in.basis_hexa.dat
 cells       :  [10, 2, 1]
 periodicity :  [1, 1, 1]
-calc_bond   :  True
+calc_bond   :  1
 rc(s)       :  [1.0]
 drc         :  0.1
 Reading the datafile: in.basis_hexa.dat

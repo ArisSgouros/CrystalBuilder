@@ -1,7 +1,7 @@
 path        :  in.basis_ni.dat
 cells       :  [4, 4, 4]
 periodicity :  [1, 1, 1]
-calc_bond   :  True
+calc_bond   :  1
 rc(s)       :  [2.49]
 drc         :  0.1
 Reading the datafile: in.basis_ni.dat

@@ -1,7 +1,7 @@
 path        :  in.basis_ti3c2.dat
 cells       :  [62, 12, 2]
 periodicity :  [1, 1, 1]
-calc_bond   :  False
+calc_bond   :  0
 rc(s)       :  [0.0]
 drc         :  0.1
 Reading the datafile: in.basis_ti3c2.dat
