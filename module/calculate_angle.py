@@ -56,3 +56,16 @@ def CalculateAngles(atoms):
       iatom.exist = True
 
    return angles
+
+def DifferentiateAngles(angles):
+  for angle in angles:
+    ai  = angle.iatom.rr
+    aj  = angle.jatom.rr
+    ak  = angle.katom.rr
+
+    # label angles with coplanar i and k atoms
+    if m.fabs(ai[2] - ak[2]) < 1.e-5:
+      angle.sym += 'T'
+    # label angles formed between atoms stacked vertically
+    if m.fabs(ai[0] - ak[0]) < 1.e-5 and m.fabs(ai[1] - ak[1]) < 1.e-5: angle.sym += 'N'
+  return

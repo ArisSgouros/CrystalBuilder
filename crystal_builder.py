@@ -34,7 +34,7 @@ from module.read import ReadBasis
 from module.net_types import Atom, Bond, AtomType, BondType, AngleType, DihedType
 from module.calculate_bond import CalculateBonds
 from module.calculate_bond_gridxy import CalculateBondsGridXy
-from module.calculate_angle import CalculateAngles
+from module.calculate_angle import CalculateAngles, DifferentiateAngles
 from module.calculate_dihed import CalculateDiheds, DifferentiateCisTrans
 
 parser = argparse.ArgumentParser(description='Generate crystal structure')
@@ -48,6 +48,7 @@ parser.add_argument('-file_dump', '--file_dump', type=str, default='dump.lammpst
 parser.add_argument('-file_xyz', '--file_xyz', type=str, default='dump.xyz', help='Name of the xyz file')
 parser.add_argument('-bond', '--bond', type=int, default='0', help='Calculate bonds')
 parser.add_argument('-angle', '--angle', type=int, default='0', help='Calculate angles')
+parser.add_argument('-angle_symmetry', '--angle_symmetry', type=int, default='0', help='Differentiate coplanar/vertical angles')
 parser.add_argument('-dihed', '--dihed', type=int, default='0', help='Calculate dihedrals')
 parser.add_argument('-cis_trans', '--cis_trans', type=int, default='0', help='Differentiate cis/trans dihedrals')
 parser.add_argument('-grid', '--grid', type=str, default='none', help='Enable grid for neighbor lists')
@@ -65,6 +66,7 @@ if __name__ == "__main__":
    drc = args.drc
    calc_bond = args.bond
    calc_angle = args.angle
+   calc_angle_symmetry = args.angle_symmetry
    calc_dihed = args.dihed
    calc_cis_trans = args.cis_trans
    grid_type = args.grid
@@ -160,10 +162,15 @@ if __name__ == "__main__":
       angles = CalculateAngles(atoms)
       print("  %d" % (len(angles)))
 
+      if calc_angle_symmetry:
+         DifferentiateAngles(angles)
+
       print("Generating angle types..")
       itype = 1
       for angle in angles:
          type_str = UniqueType([angle.iatom.type, angle.jatom.type, angle.katom.type])
+         if calc_angle_symmetry:
+            type_str = "%s %s" %(type_str, angle.sym)
          if not angle_types.get(type_str):
             angle_types[type_str] = AngleType(itype)
             itype += 1

@@ -64,6 +64,7 @@ class Angle:
       self.iatom = iatom
       self.jatom = jatom
       self.katom = katom
+      self.sym = ''
       self.type = -1
       self.type_str = ''
 
