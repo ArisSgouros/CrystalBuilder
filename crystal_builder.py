@@ -150,6 +150,7 @@ if __name__ == "__main__":
             bond_types[type_str] = BondType(itype)
             itype += 1
          bond.type = bond_types[type_str].type
+         bond.type_str = type_str
       print("  %d" % (len(bond_types)))
 
    angles = []
@@ -167,6 +168,7 @@ if __name__ == "__main__":
             angle_types[type_str] = AngleType(itype)
             itype += 1
          angle.type = angle_types[type_str].type
+         angle.type_str = type_str
       print("  %d" % (len(angle_types)))
 
    diheds = []
@@ -184,19 +186,25 @@ if __name__ == "__main__":
       for dihed in diheds:
          if dihed.orient == 'cis':
             continue
-         type_str = UniqueType([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type]) + dihed.orient
+         type_str = UniqueType([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type])
+         if calc_cis_trans:
+            type_str = "%s %s" %(type_str, dihed.orient)
          if not dihed_types.get(type_str):
             dihed_types[type_str] = DihedType(itype)
-            print(dihed.orient, itype)
+            #print(dihed.orient, itype)
             itype += 1
          dihed.type = dihed_types[type_str].type
+         dihed.type_str = type_str
       for dihed in diheds:
-         type_str = UniqueType([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type]) + dihed.orient
+         type_str = UniqueType([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type])
+         if calc_cis_trans:
+            type_str = "%s %s" %(type_str, dihed.orient)
          if not dihed_types.get(type_str):
             dihed_types[type_str] = DihedType(itype)
-            print(dihed.orient, itype)
+            #print(dihed.orient, itype)
             itype += 1
          dihed.type = dihed_types[type_str].type
+         dihed.type_str = type_str
       print("  %d" % (len(dihed_types)))
 
    print()

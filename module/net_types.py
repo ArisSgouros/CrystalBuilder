@@ -52,6 +52,7 @@ class Bond:
       self.iatom = iatom
       self.jatom = jatom
       self.type = -1
+      self.type_str = ''
 
 class AngleType:
    def __init__(self, type):
@@ -64,6 +65,7 @@ class Angle:
       self.jatom = jatom
       self.katom = katom
       self.type = -1
+      self.type_str = ''
 
 class DihedType:
    def __init__(self, type):
@@ -76,5 +78,6 @@ class Dihed:
       self.jatom = jatom
       self.katom = katom
       self.latom = latom
-      self.type = -1
       self.orient = ''
+      self.type = -1
+      self.type_str = ''

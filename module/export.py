@@ -82,22 +82,19 @@ def ExportLammpsDataFile(filename, box_lmp, atom_types, bond_types, angle_types,
       f.write('Bonds\n')
       f.write('\n')
       for bond in bonds:
-         type_str = UniqueType([bond.iatom.type, bond.jatom.type])
-         f.write("%d %d %d %d # %s\n" % (bond.bid, bond.type, bond.iatom.aid, bond.jatom.aid, type_str))
+         f.write("%d %d %d %d # %s\n" % (bond.bid, bond.type, bond.iatom.aid, bond.jatom.aid, bond.type_str))
    if is_angle:
       f.write('\n')
       f.write('Angles\n')
       f.write('\n')
       for angle in angles:
-         type_str = UniqueType([angle.iatom.type, angle.jatom.type, angle.katom.type])
-         f.write("%d %d %d %d %d # %s\n" % (angle.bid, angle.type, angle.iatom.aid, angle.jatom.aid, angle.katom.aid, type_str ))
+         f.write("%d %d %d %d %d # %s\n" % (angle.bid, angle.type, angle.iatom.aid, angle.jatom.aid, angle.katom.aid, angle.type_str ))
    if is_dihed:
       f.write('\n')
       f.write('Dihedrals\n')
       f.write('\n')
       for dihed in diheds:
-         type_str = UniqueType([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type]) + ' ' + dihed.orient
-         f.write("%d %d %d %d %d %d # %s\n" % (dihed.bid, dihed.type, dihed.iatom.aid, dihed.jatom.aid, dihed.katom.aid, dihed.latom.aid, type_str ))
+         f.write("%d %d %d %d %d %d # %s\n" % (dihed.bid, dihed.type, dihed.iatom.aid, dihed.jatom.aid, dihed.katom.aid, dihed.latom.aid, dihed.type_str ))
    f.close()
 
 def ExportLammpsDumpFile(filename, box_lmp, atoms):
