@@ -87,9 +87,10 @@ def ReadBasis(path_basis):
          line  = lines[Masses_start+ii].split()
          itype = int(line[0])
          mass  = float(line[1])
-         name  = ""
-         if len(line) == 4:
+         if len(line) >= 4:
             name = line[3]
+         else:
+            name = itype
          atom_types[itype] = AtomType(itype, mass, name)
    except:
       print("Problem with reading masses section/not existing")
