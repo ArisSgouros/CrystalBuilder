@@ -28,8 +28,8 @@ import math as m
 import numpy as np
 import argparse
 import copy as cp
-from module.export import ExportLammpsDataFile, ExportLammpsDumpFile, ExportXyzFile
 from module.aux import SortTypes
+from module.export import ExportLammpsDataFile, ExportLammpsDumpFile, ExportXyzFile, ExportTypes
 from module.read import ReadBasis
 from module.net_types import Atom, Bond, AtomType, BondType, AngleType, DihedType
 from module.calculate_bond import CalculateBonds
@@ -43,6 +43,7 @@ parser.add_argument('cells', type=str, help='delimited list of replications')
 parser.add_argument('-periodic', '--periodic', type=str, default="1,1,1", help='delimited list of periodicity directions')
 parser.add_argument('-rc', '--rc', type=str, default="", help='list of cutoff radii of bonded interactions')
 parser.add_argument('-drc', '--drc', type=float, default=0.1, help='tolerance of bonded interactions')
+parser.add_argument('-file_types', '--file_types', type=str, default="", help='Export table with atom/bond/angle/.. types')
 parser.add_argument('-file_pos', '--file_pos', type=str, default='pos.dat', help='Name of the Lammps data file')
 parser.add_argument('-file_dump', '--file_dump', type=str, default='dump.lammpstrj', help='Name of the Lammps dump file')
 parser.add_argument('-file_xyz', '--file_xyz', type=str, default='dump.xyz', help='Name of the xyz file')
@@ -77,6 +78,7 @@ if __name__ == "__main__":
    file_pos = args.file_pos
    file_dump = args.file_dump
    file_xyz  = args.file_xyz
+   file_types = args.file_types
 
    print('path        : ', path_basis)
    print('cells       : ', cells)
@@ -227,3 +229,8 @@ if __name__ == "__main__":
    print()
    print("Generating a XYZ dump file with name " + file_xyz + " ..")
    ExportXyzFile(file_xyz, box_lmp, atoms)
+
+   if file_types != "":
+     print()
+     print("Exporting interaction table " + file_types + " ..")
+     ExportTypes(file_types, atom_types, bond_types, angle_types, dihed_types)
