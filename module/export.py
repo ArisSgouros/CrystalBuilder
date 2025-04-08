@@ -28,7 +28,7 @@ import math as m
 import numpy as np
 import argparse
 import copy as cp
-from module.aux import UniqueType
+from module.aux import SortTypes
 
 def ExportLammpsDataFile(filename, box_lmp, atom_types, bond_types, angle_types, dihed_types, atoms, bonds, angles, diheds):
    xlo = box_lmp['xlo']

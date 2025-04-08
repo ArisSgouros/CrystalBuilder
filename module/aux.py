@@ -29,7 +29,7 @@ import numpy as np
 import argparse
 import copy as cp
 
-def UniqueType(chem_list):
+def SortTypes(chem_list):
    aux_list = [str(chem) for chem in chem_list]
 
    # bond, angle chems
@@ -40,4 +40,4 @@ def UniqueType(chem_list):
    if len(aux_list) == 4 and (aux_list[0] == aux_list[3] and aux_list[1] > aux_list[2]):
       aux_list.reverse()
 
-   return " ".join(aux_list)
+   return aux_list
