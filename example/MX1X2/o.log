@@ -55,3 +55,5 @@ Generating a lammps datafile with name o.pos_MX1X2.dat ..
 Generating a lammps dump file with name o.MX1X2.lammpstrj ..
 
 Generating a XYZ dump file with name o.MX1X2.xyz ..
+
+Exporting interaction table o.types.dat ..

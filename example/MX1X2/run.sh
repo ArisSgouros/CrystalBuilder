@@ -9,4 +9,5 @@ python ../../crystal_builder.py \
   --bond=1 \
   --angle=1 \
   --angle_symmetry 1 \
+  --file_types="o.types.dat" \
    > o.log
