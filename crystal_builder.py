@@ -148,7 +148,7 @@ if __name__ == "__main__":
       itype = 1
       for bond in bonds:
          type_sort = SortTypes([bond.iatom.type, bond.jatom.type])
-         type_str = " ".join(type_sort)
+         type_str = " ".join(atom_types[int(ii)].name for ii in type_sort)
          if not bond_types.get(type_str):
             bond_types[type_str] = BondType(itype, type_sort)
             itype += 1
@@ -170,7 +170,7 @@ if __name__ == "__main__":
       itype = 1
       for angle in angles:
          type_sort = SortTypes([angle.iatom.type, angle.jatom.type, angle.katom.type])
-         type_str = " ".join(type_sort)
+         type_str = " ".join(atom_types[int(ii)].name for ii in type_sort)
          if calc_angle_symmetry:
             type_str = "%s %s" %(type_str, angle.sym)
          if not angle_types.get(type_str):
@@ -196,7 +196,7 @@ if __name__ == "__main__":
          if dihed.orient == 'cis':
             continue
          type_sort = SortTypes([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type])
-         type_str = " ".join(type_sort)
+         type_str = " ".join(atom_types[int(ii)].name for ii in type_sort)
          if calc_cis_trans:
             type_str = "%s %s" %(type_str, dihed.orient)
          if not dihed_types.get(type_str):
@@ -207,7 +207,7 @@ if __name__ == "__main__":
          dihed.type_str = type_str
       for dihed in diheds:
          type_sort = SortTypes([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type])
-         type_str = " ".join(type_sort)
+         type_str = " ".join(atom_types[int(ii)].name for ii in type_sort)
          if calc_cis_trans:
             type_str = "%s %s" %(type_str, dihed.orient)
          if not dihed_types.get(type_str):
