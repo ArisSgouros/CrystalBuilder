@@ -44,8 +44,9 @@ class Atom:
       self.name = name
 
 class BondType:
-   def __init__(self, type):
+   def __init__(self, type, types):
       self.type = type
+      self.types = types
 
 class Bond:
    def __init__(self, bid, iatom, jatom):
@@ -56,8 +57,10 @@ class Bond:
       self.type_str = ''
 
 class AngleType:
-   def __init__(self, type):
+   def __init__(self, type, types, sym):
       self.type = type
+      self.types = types
+      self.sym = sym
 
 class Angle:
    def __init__(self, bid, iatom, jatom, katom):
@@ -70,8 +73,10 @@ class Angle:
       self.type_str = ''
 
 class DihedType:
-   def __init__(self, type):
+   def __init__(self, type, types, orient):
       self.type = type
+      self.types = types
+      self.orient = orient
 
 class Dihed:
    def __init__(self, bid, iatom, jatom, katom, latom):
