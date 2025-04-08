@@ -34,13 +34,14 @@ class AtomType:
       self.name = name
 
 class Atom:
-   def __init__(self, aid, mol, type, qq, rr):
+   def __init__(self, aid, mol, type, qq, rr, name):
       self.aid = aid
       self.molid = mol
       self.type = type
       self.qq = qq
       self.rr = rr
       self.neigh = []
+      self.name = name
 
 class BondType:
    def __init__(self, type):

@@ -109,7 +109,8 @@ def ReadBasis(path_basis):
          yy    = float(line[5])
          zz    = float(line[6])
          rr    = np.array([xx, yy, zz])
-         basis_atoms.append(Atom(aid, imol, itype, qq, rr))
+         name  = atom_types[itype].name
+         basis_atoms.append(Atom(aid, imol, itype, qq, rr, name))
    except:
       print("Problem with reading atom section")
       sys.exit()
