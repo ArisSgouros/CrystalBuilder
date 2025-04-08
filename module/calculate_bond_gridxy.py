@@ -71,6 +71,12 @@ def CalculateBondsGridXy(atoms, box_lmp, periodicity, rc_list, drc):
    xz  = box_lmp['xz']
    yz  = box_lmp['yz']
 
+   if m.fabs(xy) > 1.e-5 or \
+      m.fabs(xz) > 1.e-5 or \
+      m.fabs(yz) > 1.e-5:
+       print('ERROR(CalculateBondsGridXy): the gridxy optimization does not work with skewed boxes..')
+       sys.exit()
+
    rc_cell = np.max(rc_list[0])+drc
    grid = GridXy(box_lmp, rc_cell)
 
