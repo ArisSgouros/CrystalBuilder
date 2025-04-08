@@ -1,0 +1,57 @@
+path        :  in.basis_MX1X2_tri.dat
+cells       :  [3, 3, 1]
+periodicity :  [1, 1, 1]
+calc_bond   :  1
+rc(s)       :  [0.763762616]
+drc         :  0.1
+Reading the datafile: in.basis_MX1X2_tri.dat
+
+basis origin:
+    [  0.   0. -20.]
+basis vectors:
+    [1. 0. 0.]
+    [0.5       0.8660254 0.       ]
+    [ 0.  0. 40.]
+basis volume:
+    34.64101616
+basis density:
+    0.08660254035688773
+atom types:
+    1 1.0 
+    2 1.0 
+    3 1.0 
+basis atoms:
+   id       type     charge           x                y                z               
+   1        1        0.000000000      0.000000000      0.000000000      0.500000001     
+   2        2        0.000000000      0.500000000      0.288675135      1.000000001     
+   3        3        0.000000000      0.500000000      0.288675135      0.000000001     
+box vectors:
+    [3. 0. 0.]
+    [1.5        2.59807621 0.        ]
+    [ 0.  0. 40.]
+box vectors (lammps constraints):
+   xlo : 0.000000000     
+   xhi : 3.000000000     
+   ylo : 0.000000000     
+   yhi : 2.598076212     
+   zlo : -20.000000000   
+   zhi : 40.000000000    
+   xy  : 1.500000000     
+   xz  : 0.000000000     
+   yz  : 0.000000000     
+
+Generating the atomic coordinates..
+Generating bonds..
+  54
+Generating bond types..
+  2
+Generating angles..
+  189
+Generating angle types..
+  6
+
+Generating a lammps datafile with name o.pos_MX1X2.dat ..
+
+Generating a lammps dump file with name o.MX1X2.lammpstrj ..
+
+Generating a XYZ dump file with name o.MX1X2.xyz ..
