@@ -17,9 +17,9 @@ basis volume:
 basis density:
     0.08660254035688773
 atom types:
-    1 1.0 
-    2 1.0 
-    3 1.0 
+    1 1.0 M_
+    2 1.0 X1
+    3 1.0 X2
 basis atoms:
    id       type     charge           x                y                z               
    1        1        0.000000000      0.000000000      0.000000000      0.500000001     
