@@ -10,4 +10,5 @@ python ../../crystal_builder.py \
   --angle=1 \
   --angle_symmetry 1 \
   --file_types="o.types.dat" \
+  --type_delimeter=" " \
    > o.log
