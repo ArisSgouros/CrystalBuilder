@@ -53,6 +53,7 @@ parser.add_argument('-angle_symmetry', '--angle_symmetry', type=int, default='0'
 parser.add_argument('-dihed', '--dihed', type=int, default='0', help='Calculate dihedrals')
 parser.add_argument('-cis_trans', '--cis_trans', type=int, default='0', help='Differentiate cis/trans dihedrals')
 parser.add_argument('-grid', '--grid', type=str, default='none', help='Enable grid for neighbor lists')
+parser.add_argument('-type_delimeter', '--type_delimeter', type=str, default=" ", help='String which joins different types')
 
 # constants
 kDim = 3
@@ -71,6 +72,7 @@ if __name__ == "__main__":
    calc_dihed = args.dihed
    calc_cis_trans = args.cis_trans
    grid_type = args.grid
+   type_delimeter = args.type_delimeter
 
    if grid_type != 'none':
      print("Warning: grid does not work with triclinic cells")
@@ -150,7 +152,7 @@ if __name__ == "__main__":
       itype = 1
       for bond in bonds:
          type_sort = SortTypes([bond.iatom.type, bond.jatom.type])
-         type_str = " ".join(atom_types[int(ii)].name for ii in type_sort)
+         type_str = type_delimeter.join(atom_types[int(ii)].name for ii in type_sort)
          if not bond_types.get(type_str):
             bond_types[type_str] = BondType(itype, type_sort)
             itype += 1
@@ -172,7 +174,7 @@ if __name__ == "__main__":
       itype = 1
       for angle in angles:
          type_sort = SortTypes([angle.iatom.type, angle.jatom.type, angle.katom.type])
-         type_str = " ".join(atom_types[int(ii)].name for ii in type_sort)
+         type_str = type_delimeter.join(atom_types[int(ii)].name for ii in type_sort)
          if calc_angle_symmetry:
             type_str = "%s %s" %(type_str, angle.sym)
          if not angle_types.get(type_str):
@@ -198,7 +200,7 @@ if __name__ == "__main__":
          if dihed.orient == 'cis':
             continue
          type_sort = SortTypes([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type])
-         type_str = " ".join(atom_types[int(ii)].name for ii in type_sort)
+         type_str = type_delimeter.join(atom_types[int(ii)].name for ii in type_sort)
          if calc_cis_trans:
             type_str = "%s %s" %(type_str, dihed.orient)
          if not dihed_types.get(type_str):
@@ -209,7 +211,7 @@ if __name__ == "__main__":
          dihed.type_str = type_str
       for dihed in diheds:
          type_sort = SortTypes([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type])
-         type_str = " ".join(atom_types[int(ii)].name for ii in type_sort)
+         type_str = type_delimeter.join(atom_types[int(ii)].name for ii in type_sort)
          if calc_cis_trans:
             type_str = "%s %s" %(type_str, dihed.orient)
          if not dihed_types.get(type_str):
