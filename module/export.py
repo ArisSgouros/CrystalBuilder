@@ -159,7 +159,17 @@ def ExportXyzFile(filename, box_lmp, atoms):
 def ExportTypes(filename, atom_types, bond_types, angle_types, dihed_types):
    fout = open(filename, 'w')
 
-   fout.write('Atom Types\n\n')
+   fout.write('\n')
+   fout.write('\n')
+
+   # Export number of types
+   if len(atom_types) > 0:  fout.write('%d atom types\n' % len(atom_types))
+   if len(bond_types) > 0:  fout.write('%d bond types\n' % len(bond_types))
+   if len(angle_types) > 0: fout.write('%d angle types\n' % len(angle_types))
+   if len(dihed_types) > 0: fout.write('%d dihedral types\n' % len(dihed_types))
+
+   # Export types of components
+   fout.write('\nAtom Types\n\n')
    for key in atom_types:
      obj = atom_types[key]
      fout.write("%d %s\n" %(obj.type, obj.name))
@@ -177,7 +187,7 @@ def ExportTypes(filename, atom_types, bond_types, angle_types, dihed_types):
        fout.write("%d %s\n" %(obj.type, key))
 
    if dihed_types:
-     fout.write('\nDihed Types\n\n')
+     fout.write('\nDihedral Types\n\n')
      for key in dihed_types:
        obj = dihed_types[key]
        fout.write("%d %s\n" %(obj.type, key))
