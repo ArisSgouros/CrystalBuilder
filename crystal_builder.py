@@ -176,7 +176,7 @@ if __name__ == "__main__":
          type_sort = SortTypes([angle.iatom.type, angle.jatom.type, angle.katom.type])
          type_str = type_delimeter.join(atom_types[int(ii)].name for ii in type_sort)
          if calc_angle_symmetry:
-            type_str = "%s %s" %(type_str, angle.sym)
+            type_str = "%s%s%s" %(type_str, type_delimeter, angle.sym)
          if not angle_types.get(type_str):
             angle_types[type_str] = AngleType(itype, type_sort, angle.sym)
             itype += 1
@@ -202,7 +202,7 @@ if __name__ == "__main__":
          type_sort = SortTypes([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type])
          type_str = type_delimeter.join(atom_types[int(ii)].name for ii in type_sort)
          if calc_cis_trans:
-            type_str = "%s %s" %(type_str, dihed.orient)
+            type_str = "%s%s%s" %(type_str, type_delimeter, dihed.orient)
          if not dihed_types.get(type_str):
             dihed_types[type_str] = DihedType(itype, type_sort, dihed.orient)
             #print(dihed.orient, itype)
@@ -213,7 +213,7 @@ if __name__ == "__main__":
          type_sort = SortTypes([dihed.iatom.type, dihed.jatom.type, dihed.katom.type, dihed.latom.type])
          type_str = type_delimeter.join(atom_types[int(ii)].name for ii in type_sort)
          if calc_cis_trans:
-            type_str = "%s %s" %(type_str, dihed.orient)
+            type_str = "%s%s%s" %(type_str, type_delimeter, dihed.orient)
          if not dihed_types.get(type_str):
             dihed_types[type_str] = DihedType(itype, type_sort, dihed.orient)
             #print(dihed.orient, itype)
