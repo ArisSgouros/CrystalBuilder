@@ -225,12 +225,14 @@ if __name__ == "__main__":
    print()
    print("Generating a lammps datafile with name " + file_pos + " ..")
    ExportLammpsDataFile(file_pos, box_lmp, atom_types, bond_types, angle_types, dihed_types, atoms, bonds, angles, diheds)
-   print()
-   print("Generating a lammps dump file with name " + file_dump + " ..")
-   ExportLammpsDumpFile(file_dump, box_lmp, atoms)
-   print()
-   print("Generating a XYZ dump file with name " + file_xyz + " ..")
-   ExportXyzFile(file_xyz, box_lmp, atoms)
+   if file_dump != '':
+     print()
+     print("Generating a lammps dump file with name " + file_dump + " ..")
+     ExportLammpsDumpFile(file_dump, box_lmp, atoms)
+   if file_xyz != '':
+     print()
+     print("Generating a XYZ dump file with name " + file_xyz + " ..")
+     ExportXyzFile(file_xyz, box_lmp, atoms)
 
    if file_types != "":
      print()
