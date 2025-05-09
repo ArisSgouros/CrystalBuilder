@@ -118,9 +118,9 @@ if __name__ == "__main__":
       box_orig.append(basis_orig[ii]*cells[ii])
       print('   ', box_vectors[ii])
    print("box vectors (lammps constraints):")
-   box_lmp = {'xlo':box_orig[0], 'xhi':box_vectors[0][0], \
-              'ylo':box_orig[1], 'yhi':box_vectors[1][1], \
-              'zlo':box_orig[2], 'zhi':box_vectors[2][2], \
+   box_lmp = {'xlo':box_orig[0], 'xhi':box_orig[0]+box_vectors[0][0], \
+              'ylo':box_orig[1], 'yhi':box_orig[1]+box_vectors[1][1], \
+              'zlo':box_orig[2], 'zhi':box_orig[2]+box_vectors[2][2], \
               'xy':box_vectors[1][0], 'xz':box_vectors[2][0], 'yz':box_vectors[2][1]}
    for key in box_lmp:
       print("   %-3s : %-16.9f" % (key, box_lmp[key]))
