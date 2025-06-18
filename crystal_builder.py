@@ -48,6 +48,7 @@ parser.add_argument('-file_pos', '--file_pos', type=str, default='pos.dat', help
 parser.add_argument('-file_dump', '--file_dump', type=str, default='dump.lammpstrj', help='Name of the Lammps dump file')
 parser.add_argument('-file_xyz', '--file_xyz', type=str, default='dump.xyz', help='Name of the xyz file')
 parser.add_argument('-bond', '--bond', type=int, default='0', help='Calculate bonds')
+parser.add_argument('-diff_bond_len', '--diff_bond_len', type=int, default='0', help='Differentiate bond types based on length')
 parser.add_argument('-angle', '--angle', type=int, default='0', help='Calculate angles')
 parser.add_argument('-angle_symmetry', '--angle_symmetry', type=int, default='0', help='Differentiate coplanar/vertical angles')
 parser.add_argument('-dihed', '--dihed', type=int, default='0', help='Calculate dihedrals')
@@ -66,6 +67,7 @@ if __name__ == "__main__":
    periodicity = [int(item) for item in args.periodic.split(',')]
    rc_list = [float(item) for item in args.rc.split(',')]
    drc = args.drc
+   diff_bond_len = args.diff_bond_len
    calc_bond = args.bond
    calc_angle = args.angle
    calc_angle_symmetry = args.angle_symmetry
@@ -153,6 +155,8 @@ if __name__ == "__main__":
       for bond in bonds:
          type_sort = SortTypes([bond.iatom.name, bond.jatom.name])
          type_str = type_delimeter.join(ii for ii in type_sort)
+         if diff_bond_len:
+            type_str = "%s_%.2f" %(type_str, bond.len)
          if not bond_types.get(type_str):
             bond_types[type_str] = BondType(itype, type_sort)
             itype += 1

@@ -62,7 +62,8 @@ def CalculateBonds(atoms, box_lmp, periodicity, rc_list, drc):
             rij = MinImag(rij, lx, ly, lz, xy, xz, yz, periodicity)
             rij2 = np.dot(rij, rij)
             if rmin2 < rij2 < rmax2:
-               bonds.append(Bond(bid, atoms[ii], atoms[jj]))
+               rlen = np.sqrt(rij2)
+               bonds.append(Bond(bid, atoms[ii], atoms[jj], rlen))
                atoms[ii].neigh.append(atoms[jj])
                atoms[jj].neigh.append(atoms[ii])
                bid += 1

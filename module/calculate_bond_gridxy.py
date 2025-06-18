@@ -144,7 +144,8 @@ def CalculateBondsGridXy(atoms, box_lmp, periodicity, rc_list, drc):
                   rij = MinImag(rij, lx, ly, lz, xy, xz, yz, periodicity)
                   rij2 = np.dot(rij, rij)
                   if rmin2 < rij2 < rmax2:
-                     bonds.append(Bond(bid, iatom, jatom))
+                     rlen = np.sqrt(rij2)
+                     bonds.append(Bond(bid, iatom, jatom, rlen))
                      iatom.neigh.append(jatom)
                      jatom.neigh.append(iatom)
                      bid += 1

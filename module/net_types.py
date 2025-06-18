@@ -49,10 +49,11 @@ class BondType:
       self.types = types
 
 class Bond:
-   def __init__(self, bid, iatom, jatom):
+   def __init__(self, bid, iatom, jatom, rr):
       self.bid = bid
       self.iatom = iatom
       self.jatom = jatom
+      self.len = rr
       self.type = -1
       self.type_str = ''
 
