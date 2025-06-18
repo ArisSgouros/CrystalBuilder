@@ -1,0 +1,59 @@
+path        :  i.basis_Bi2Se3_1layer.dat
+cells       :  [3, 3, 1]
+periodicity :  [1, 1, 1]
+calc_bond   :  1
+rc(s)       :  [2.88, 3.11]
+drc         :  0.1
+Reading the datafile: i.basis_Bi2Se3_1layer.dat
+
+basis origin:
+    [0. 0. 0.]
+basis vectors:
+    [4.19136653 0.         0.        ]
+    [0.         7.25965978 0.        ]
+    [ 0.         0.        29.9286872]
+basis volume:
+    910.666950869459
+basis density:
+    0.010980962898074322
+atom types:
+    1 78.96 Se
+    2 208.9804 Bi
+basis atoms:
+   id       type     charge           x                y                z               
+   1        1        0.000000000      0.000000000      0.000000000      7.040320000     
+   2        1        0.000000000      2.095680000      3.629830000      7.040320000     
+   3        2        0.000000000      2.095680000      -1.209940000     5.468570000     
+   4        2        0.000000000      0.000000000      2.419890000      5.468570000     
+   5        1        0.000000000      2.095680000      1.209940000      3.520160000     
+   6        1        0.000000000      0.000000000      4.839770000      3.520160000     
+   7        2        0.000000000      0.000000000      0.000000000      1.571750000     
+   8        2        0.000000000      2.095680000      3.629830000      1.571750000     
+   9        1        0.000000000      2.095680000      -1.209940000     0.000000000     
+   10       1        0.000000000      0.000000000      2.419890000      0.000000000     
+box vectors:
+    [12.57409958  0.          0.        ]
+    [ 0.         21.77897933  0.        ]
+    [ 0.         0.        29.9286872]
+box vectors (lammps constraints):
+   xlo : 0.000000000     
+   xhi : 12.574099578    
+   ylo : 0.000000000     
+   yhi : 21.778979328    
+   zlo : 0.000000000     
+   zhi : 29.928687200    
+   xy  : 0.000000000     
+   xz  : 0.000000000     
+   yz  : 0.000000000     
+
+Generating the atomic coordinates..
+Generating bonds..
+  216
+Generating bond types..
+  1
+
+Generating a lammps datafile with name o.type_not_depend_blen3x3.dat ..
+
+Generating a lammps dump file with name o.type_not_depend_blen3x3.lammpstrj ..
+
+Generating a XYZ dump file with name o.type_not_depend_blen3x3.xyz ..
