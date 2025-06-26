@@ -35,4 +35,5 @@ python ../../crystal_builder.py \
   --dihed=0 \
   --cis_trans=0 \
   --diff_bond_len=1 \
+  --diff_bond_fmt="%.2f" \
    > $name".log"
