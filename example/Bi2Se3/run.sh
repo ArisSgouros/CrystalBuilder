@@ -9,6 +9,7 @@ python ../../crystal_builder.py \
   --file_pos=$name".dat" \
   --file_dump=$name".lammpstrj" \
   --file_xyz=$name".xyz" \
+  --file_types=$name".types.dat" \
   --rc="2.88,3.11" \
   --drc=0.1 \
   --bond=1 \

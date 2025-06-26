@@ -57,3 +57,5 @@ Generating a lammps datafile with name o.type_not_depend_blen3x3.dat ..
 Generating a lammps dump file with name o.type_not_depend_blen3x3.lammpstrj ..
 
 Generating a XYZ dump file with name o.type_not_depend_blen3x3.xyz ..
+
+Exporting interaction table o.type_not_depend_blen3x3.types.dat ..
