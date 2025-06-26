@@ -51,11 +51,15 @@ Generating bonds..
   216
 Generating bond types..
   2
+Generating angles..
+  918
+Generating angle types..
+  8
 
-Generating a lammps datafile with name o.type_depends_blen3x3.dat ..
+Generating a lammps datafile with name o.type_depends_blen_angle3x3.dat ..
 
-Generating a lammps dump file with name o.type_depends_blen3x3.lammpstrj ..
+Generating a lammps dump file with name o.type_depends_blen_angle3x3.lammpstrj ..
 
-Generating a XYZ dump file with name o.type_depends_blen3x3.xyz ..
+Generating a XYZ dump file with name o.type_depends_blen_angle3x3.xyz ..
 
-Exporting interaction table o.type_depends_blen3x3.types.dat ..
+Exporting interaction table o.type_depends_blen_angle3x3.types.dat ..
