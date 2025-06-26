@@ -52,8 +52,8 @@ parser.add_argument('-diff_bond_len', '--diff_bond_len', type=int, default='0', 
 parser.add_argument('-diff_bond_fmt', '--diff_bond_fmt', type=str, default='%.2f', help='Set the fmt of bond lengths')
 parser.add_argument('-angle', '--angle', type=int, default='0', help='Calculate angles')
 parser.add_argument('-angle_symmetry', '--angle_symmetry', type=int, default='0', help='Differentiate coplanar/vertical angles')
-parser.add_argument('-diff_angle', '--diff_angle', type=int, default='0', help='Differentiate angle types based on their value')
-parser.add_argument('-diff_angle_fmt', '--diff_angle_fmt', type=str, default='%.2f', help='Set the fmt of angles')
+parser.add_argument('-diff_angle_theta', '--diff_angle_theta', type=int, default='0', help='Differentiate angle types based on theta')
+parser.add_argument('-diff_angle_theta_fmt', '--diff_angle_theta_fmt', type=str, default='%.2f', help='Set the fmt of angles')
 parser.add_argument('-dihed', '--dihed', type=int, default='0', help='Calculate dihedrals')
 parser.add_argument('-cis_trans', '--cis_trans', type=int, default='0', help='Differentiate cis/trans dihedrals')
 parser.add_argument('-grid', '--grid', type=str, default='none', help='Enable grid for neighbor lists')
@@ -75,8 +75,8 @@ if __name__ == "__main__":
    diff_bond_len = args.diff_bond_len
    diff_bond_fmt = args.diff_bond_fmt
    calc_angle = args.angle
-   diff_angle = args.diff_angle
-   diff_angle_fmt = args.diff_angle_fmt
+   diff_angle_theta = args.diff_angle_theta
+   diff_angle_theta_fmt = args.diff_angle_theta_fmt
    calc_angle_symmetry = args.angle_symmetry
    calc_dihed = args.dihed
    calc_cis_trans = args.cis_trans
@@ -182,7 +182,7 @@ if __name__ == "__main__":
       if calc_angle_symmetry:
          DifferentiateAngleSymmetry(angles)
 
-      if diff_angle:
+      if diff_angle_theta:
          DifferentiateAngleTheta(angles, box_lmp, periodicity)
 
       print("Generating angle types..")
@@ -192,8 +192,8 @@ if __name__ == "__main__":
          type_str = type_delimeter.join(ii for ii in type_sort)
          if calc_angle_symmetry:
             type_str = "%s%s%s" %(type_str, type_delimeter, angle.sym)
-         if diff_angle:
-            fmt_tmp = str(diff_angle_fmt %(angle.theta))
+         if diff_angle_theta:
+            fmt_tmp = str(diff_angle_theta_fmt %(angle.theta))
             type_str = "%s%s%s" %(type_str, type_delimeter, fmt_tmp)
          if not angle_types.get(type_str):
             angle_types[type_str] = AngleType(itype, type_sort, angle.sym)
