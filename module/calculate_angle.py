@@ -28,6 +28,15 @@ import math as m
 import numpy as np
 from module.net_types import Atom, AtomType, Angle
 
+def MinImag(rr, lx, ly, lz, xy, xz, yz, periodicity):
+   rr_imag = np.array([ rr[0] - xy*round(rr[1]/ly) - xz*round(rr[2]/lz), \
+                        rr[1] - yz*round(rr[2]/lz), \
+                        rr[2] ])
+   rr_imag[0] -= int(periodicity[0])*lx*round(rr_imag[0]/lx)
+   rr_imag[1] -= int(periodicity[1])*ly*round(rr_imag[1]/ly)
+   rr_imag[2] -= int(periodicity[2])*lz*round(rr_imag[2]/lz)
+   return rr_imag
+
 def is_list_unique(list_in):
    return len(set(list_in)) == len(list_in)
 
@@ -74,3 +83,30 @@ def DifferentiateAngleSymmetry(angles):
       angle.sym = 'A'
 
   return
+
+def DifferentiateAngleTheta(angles, box_lmp, periodicity):
+   lx = box_lmp['xhi'] - box_lmp['xlo']
+   ly = box_lmp['yhi'] - box_lmp['ylo']
+   lz = box_lmp['zhi'] - box_lmp['zlo']
+   xy  = box_lmp['xy']
+   xz  = box_lmp['xz']
+   yz  = box_lmp['yz']
+   for angle in angles:
+      ri  = angle.iatom.rr
+      rj  = angle.jatom.rr
+      rk  = angle.katom.rr
+
+      rji = ri - rj
+      rji = MinImag(rji, lx, ly, lz, xy, xz, yz, periodicity)
+      rji /= np.linalg.norm(rji)
+
+      rjk = rk - rj
+      rjk = MinImag(rjk, lx, ly, lz, xy, xz, yz, periodicity)
+      rjk /= np.linalg.norm(rjk)
+
+      costheta = np.clip(np.dot(rji, rjk), -1.0, 1.0)
+      theta = np.degrees(np.arccos(costheta))
+
+      angle.theta = theta
+
+   return

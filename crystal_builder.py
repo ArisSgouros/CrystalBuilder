@@ -34,7 +34,7 @@ from module.read import ReadBasis
 from module.net_types import Atom, Bond, AtomType, BondType, AngleType, DihedType
 from module.calculate_bond import CalculateBonds
 from module.calculate_bond_gridxy import CalculateBondsGridXy
-from module.calculate_angle import CalculateAngles, DifferentiateAngleSymmetry
+from module.calculate_angle import CalculateAngles, DifferentiateAngleSymmetry, DifferentiateAngleTheta
 from module.calculate_dihed import CalculateDiheds, DifferentiateCisTrans
 
 parser = argparse.ArgumentParser(description='Generate crystal structure')
@@ -52,6 +52,8 @@ parser.add_argument('-diff_bond_len', '--diff_bond_len', type=int, default='0', 
 parser.add_argument('-diff_bond_fmt', '--diff_bond_fmt', type=str, default='%.2f', help='Set the fmt of bond lengths')
 parser.add_argument('-angle', '--angle', type=int, default='0', help='Calculate angles')
 parser.add_argument('-angle_symmetry', '--angle_symmetry', type=int, default='0', help='Differentiate coplanar/vertical angles')
+parser.add_argument('-diff_angle', '--diff_angle', type=int, default='0', help='Differentiate angle types based on their value')
+parser.add_argument('-diff_angle_fmt', '--diff_angle_fmt', type=str, default='%.2f', help='Set the fmt of angles')
 parser.add_argument('-dihed', '--dihed', type=int, default='0', help='Calculate dihedrals')
 parser.add_argument('-cis_trans', '--cis_trans', type=int, default='0', help='Differentiate cis/trans dihedrals')
 parser.add_argument('-grid', '--grid', type=str, default='none', help='Enable grid for neighbor lists')
@@ -62,21 +64,24 @@ kDim = 3
 kTol = 1.e-8
 
 if __name__ == "__main__":
+
    args = parser.parse_args()
    path_basis = args.path_basis
    cells = [int(item) for item in args.cells.split(',')]
    periodicity = [int(item) for item in args.periodic.split(',')]
    rc_list = [float(item) for item in args.rc.split(',')]
    drc = args.drc
-   diff_bond_len = args.diff_bond_len
    calc_bond = args.bond
+   diff_bond_len = args.diff_bond_len
+   diff_bond_fmt = args.diff_bond_fmt
    calc_angle = args.angle
+   diff_angle = args.diff_angle
+   diff_angle_fmt = args.diff_angle_fmt
    calc_angle_symmetry = args.angle_symmetry
    calc_dihed = args.dihed
    calc_cis_trans = args.cis_trans
    grid_type = args.grid
    type_delimeter = args.type_delimeter
-   diff_bond_fmt = args.diff_bond_fmt
 
    if grid_type != 'none':
      print("Warning: grid does not work with triclinic cells")
@@ -177,6 +182,9 @@ if __name__ == "__main__":
       if calc_angle_symmetry:
          DifferentiateAngleSymmetry(angles)
 
+      if diff_angle:
+         DifferentiateAngleTheta(angles, box_lmp, periodicity)
+
       print("Generating angle types..")
       itype = 1
       for angle in angles:
@@ -184,6 +192,9 @@ if __name__ == "__main__":
          type_str = type_delimeter.join(ii for ii in type_sort)
          if calc_angle_symmetry:
             type_str = "%s%s%s" %(type_str, type_delimeter, angle.sym)
+         if diff_angle:
+            fmt_tmp = str(diff_angle_fmt %(angle.theta))
+            type_str = "%s%s%s" %(type_str, type_delimeter, fmt_tmp)
          if not angle_types.get(type_str):
             angle_types[type_str] = AngleType(itype, type_sort, angle.sym)
             itype += 1
