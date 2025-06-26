@@ -49,6 +49,7 @@ parser.add_argument('-file_dump', '--file_dump', type=str, default='dump.lammpst
 parser.add_argument('-file_xyz', '--file_xyz', type=str, default='dump.xyz', help='Name of the xyz file')
 parser.add_argument('-bond', '--bond', type=int, default='0', help='Calculate bonds')
 parser.add_argument('-diff_bond_len', '--diff_bond_len', type=int, default='0', help='Differentiate bond types based on length')
+parser.add_argument('-diff_bond_fmt', '--diff_bond_fmt', type=str, default='%.2f', help='Set the fmt of bond lengths')
 parser.add_argument('-angle', '--angle', type=int, default='0', help='Calculate angles')
 parser.add_argument('-angle_symmetry', '--angle_symmetry', type=int, default='0', help='Differentiate coplanar/vertical angles')
 parser.add_argument('-dihed', '--dihed', type=int, default='0', help='Calculate dihedrals')
@@ -75,6 +76,7 @@ if __name__ == "__main__":
    calc_cis_trans = args.cis_trans
    grid_type = args.grid
    type_delimeter = args.type_delimeter
+   diff_bond_fmt = args.diff_bond_fmt
 
    if grid_type != 'none':
      print("Warning: grid does not work with triclinic cells")
@@ -156,7 +158,8 @@ if __name__ == "__main__":
          type_sort = SortTypes([bond.iatom.name, bond.jatom.name])
          type_str = type_delimeter.join(ii for ii in type_sort)
          if diff_bond_len:
-            type_str = "%s_%.2f" %(type_str, bond.len)
+            fmt_tmp = '%s_'+diff_bond_fmt
+            type_str = fmt_tmp %(type_str, bond.len)
          if not bond_types.get(type_str):
             bond_types[type_str] = BondType(itype, type_sort)
             itype += 1
