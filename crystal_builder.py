@@ -163,8 +163,8 @@ if __name__ == "__main__":
          type_sort = SortTypes([bond.iatom.name, bond.jatom.name])
          type_str = type_delimeter.join(ii for ii in type_sort)
          if diff_bond_len:
-            fmt_tmp = '%s_'+diff_bond_fmt
-            type_str = fmt_tmp %(type_str, bond.len)
+            fmt_tmp = str(diff_bond_fmt %(bond.len))
+            type_str = "%s%s%s" %(type_str, type_delimeter, fmt_tmp)
          if not bond_types.get(type_str):
             bond_types[type_str] = BondType(itype, type_sort)
             itype += 1
