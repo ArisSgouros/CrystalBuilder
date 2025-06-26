@@ -175,7 +175,7 @@ if __name__ == "__main__":
       print("  %d" % (len(angles)))
 
       if calc_angle_symmetry:
-         DifferentiateAngles(angles)
+         DifferentiateAngleSymmetry(angles)
 
       print("Generating angle types..")
       itype = 1

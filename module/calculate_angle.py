@@ -57,7 +57,7 @@ def CalculateAngles(atoms):
 
    return angles
 
-def DifferentiateAngles(angles):
+def DifferentiateAngleSymmetry(angles):
   for angle in angles:
     ai  = angle.iatom.rr
     aj  = angle.jatom.rr
