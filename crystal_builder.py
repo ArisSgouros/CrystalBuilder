@@ -34,7 +34,7 @@ from module.read import ReadBasis
 from module.net_types import Atom, Bond, AtomType, BondType, AngleType, DihedType
 from module.calculate_bond import CalculateBonds
 from module.calculate_bond_gridxy import CalculateBondsGridXy
-from module.calculate_angle import CalculateAngles, DifferentiateAngles
+from module.calculate_angle import CalculateAngles, DifferentiateAngleSymmetry
 from module.calculate_dihed import CalculateDiheds, DifferentiateCisTrans
 
 parser = argparse.ArgumentParser(description='Generate crystal structure')
