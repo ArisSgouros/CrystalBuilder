@@ -97,12 +97,12 @@ def ReadBasis(path_basis):
       sys.exit()
    #
    # Read the Atoms section
-   imol = 1
    basis_atoms   = []
    try:
       for ii in range(n_atom):
          line  = lines[Atoms_start+ii].split()
          aid   = int(line[0])
+         imol  = int(line[1])
          itype = int(line[2])
          qq    = float(line[3])
          xx    = float(line[4])

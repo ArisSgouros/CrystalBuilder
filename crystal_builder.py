@@ -144,7 +144,7 @@ if __name__ == "__main__":
          for ix in range(cells[0]):
             for atom in basis_atoms:
                rr = atom.rr + basis_vectors[0]*ix + basis_vectors[1]*iy +basis_vectors[2]*iz
-               atoms.append(Atom(aid, imol, atom.type, atom.qq, rr, atom.name))
+               atoms.append(Atom(aid, atom.molid, atom.type, atom.qq, rr, atom.name))
                aid+=1
 
    bonds = []
