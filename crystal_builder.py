@@ -58,6 +58,7 @@ parser.add_argument('-dihed', '--dihed', type=int, default='0', help='Calculate 
 parser.add_argument('-cis_trans', '--cis_trans', type=int, default='0', help='Differentiate cis/trans dihedrals')
 parser.add_argument('-grid', '--grid', type=str, default='none', help='Enable grid for neighbor lists')
 parser.add_argument('-type_delimeter', '--type_delimeter', type=str, default=" ", help='String which joins different types')
+parser.add_argument('-molid_inc_z', '--molid_inc_z', type=int, default=0, help='increase the molids for each z-axis duplication')
 
 # constants
 kDim = 3
@@ -82,6 +83,7 @@ if __name__ == "__main__":
    calc_cis_trans = args.cis_trans
    grid_type = args.grid
    type_delimeter = args.type_delimeter
+   molid_inc_z = args.molid_inc_z
 
    if grid_type != 'none':
      print("Warning: grid does not work with triclinic cells")
@@ -144,7 +146,8 @@ if __name__ == "__main__":
          for ix in range(cells[0]):
             for atom in basis_atoms:
                rr = atom.rr + basis_vectors[0]*ix + basis_vectors[1]*iy +basis_vectors[2]*iz
-               atoms.append(Atom(aid, atom.molid, atom.type, atom.qq, rr, atom.name))
+               imol = atom.molid + iz*molid_inc_z
+               atoms.append(Atom(aid, imol, atom.type, atom.qq, rr, atom.name))
                aid+=1
 
    bonds = []
