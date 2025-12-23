@@ -215,7 +215,7 @@ if __name__ == "__main__":
       print("  %d" % (len(diheds)))
 
       if calc_cis_trans:
-         DifferentiateCisTrans(diheds, [box_vectors[0][0], box_vectors[1][1], box_vectors[2][2]])
+         DifferentiateCisTrans(diheds, box_lmp, periodicity)
 
       print("Generating dihed types..")
       itype = 1
