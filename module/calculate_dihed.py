@@ -122,4 +122,5 @@ def DifferentiateCisTrans(diheds, lbox, periodicity):
     else:
       # cis
       dihed.orient = 'cis'
+    dihed.phi = phi
   return

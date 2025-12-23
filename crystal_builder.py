@@ -57,6 +57,9 @@ parser.add_argument('-angle_symmetry', '--angle_symmetry', type=int, default='0'
 parser.add_argument('-diff_angle_theta', '--diff_angle_theta', type=int, default='0', help='Differentiate angle types based on theta')
 parser.add_argument('-diff_angle_theta_fmt', '--diff_angle_theta_fmt', type=str, default='%.2f', help='Set the fmt of angles')
 parser.add_argument('-dihed', '--dihed', type=int, default='0', help='Calculate dihedrals')
+parser.add_argument('-diff_dihed_theta', '--diff_dihed_theta', type=int, default='0', help='Differentiate dihed types based on theta')
+parser.add_argument('-diff_dihed_theta_abs', '--diff_dihed_theta_abs', type=int, default='1', help='Absolute dihedral angle')
+parser.add_argument('-diff_dihed_theta_fmt', '--diff_dihed_theta_fmt', type=str, default='%.2f', help='Set the fmt of diheds')
 parser.add_argument('-cis_trans', '--cis_trans', type=int, default='0', help='Differentiate cis/trans dihedrals')
 parser.add_argument('-grid', '--grid', type=str, default='none', help='Enable grid for neighbor lists')
 parser.add_argument('-type_delimeter', '--type_delimeter', type=str, default=" ", help='String which joins different types')
@@ -80,6 +83,9 @@ if __name__ == "__main__":
    calc_angle = args.angle
    diff_angle_theta = args.diff_angle_theta
    diff_angle_theta_fmt = args.diff_angle_theta_fmt
+   diff_dihed_theta = args.diff_dihed_theta
+   diff_dihed_theta_abs = args.diff_dihed_theta_abs
+   diff_dihed_theta_fmt = args.diff_dihed_theta_fmt
    calc_angle_symmetry = args.angle_symmetry
    calc_dihed = args.dihed
    calc_cis_trans = args.cis_trans
@@ -214,7 +220,7 @@ if __name__ == "__main__":
       diheds = CalculateDiheds(atoms)
       print("  %d" % (len(diheds)))
 
-      if calc_cis_trans:
+      if calc_cis_trans or diff_dihed_theta:
          DifferentiateCisTrans(diheds, box_lmp, periodicity)
 
       print("Generating dihed types..")
@@ -226,9 +232,15 @@ if __name__ == "__main__":
          type_str = type_delimeter.join(ii for ii in type_sort)
          if calc_cis_trans:
             type_str = "%s%s%s" %(type_str, type_delimeter, dihed.orient)
+         if diff_dihed_theta:
+            phi_deg = m.degrees(dihed.phi)
+            if diff_dihed_theta_abs:
+               phi_deg = abs(phi_deg)
+            fmt_tmp = str(diff_dihed_theta_fmt %(phi_deg))
+            type_str = "%s%s%s" %(type_str, type_delimeter, fmt_tmp)
          if not dihed_types.get(type_str):
+            print("Add dihed %s %f" %(type_str, dihed.phi))
             dihed_types[type_str] = DihedType(itype, type_sort, dihed.orient)
-            #print(dihed.orient, itype)
             itype += 1
          dihed.type = dihed_types[type_str].type
          dihed.type_str = type_str
@@ -237,9 +249,15 @@ if __name__ == "__main__":
          type_str = type_delimeter.join(ii for ii in type_sort)
          if calc_cis_trans:
             type_str = "%s%s%s" %(type_str, type_delimeter, dihed.orient)
+         if diff_dihed_theta:
+            phi_deg = m.degrees(dihed.phi)
+            if diff_dihed_theta_abs:
+               phi_deg = abs(phi_deg)
+            fmt_tmp = str(diff_dihed_theta_fmt %(phi_deg))
+            type_str = "%s%s%s" %(type_str, type_delimeter, fmt_tmp)
          if not dihed_types.get(type_str):
+            print("Add dihed %s %f" %(type_str, dihed.phi))
             dihed_types[type_str] = DihedType(itype, type_sort, dihed.orient)
-            #print(dihed.orient, itype)
             itype += 1
          dihed.type = dihed_types[type_str].type
          dihed.type_str = type_str
