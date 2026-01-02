@@ -52,6 +52,7 @@ Generating angle types..
 Generating diheds..
   768
 Generating dihed types..
+Add dihed B N B N
   1
 
 Generating a lammps datafile with name o.hbn.dat ..

@@ -52,6 +52,8 @@ Generating angle types..
 Generating diheds..
   768
 Generating dihed types..
+Add dihed B N B N trans
+Add dihed B N B N cis
   2
 
 Generating a lammps datafile with name o.hbn_cis_trans.dat ..
