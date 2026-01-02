@@ -239,7 +239,7 @@ if __name__ == "__main__":
             fmt_tmp = str(diff_dihed_theta_fmt %(phi_deg))
             type_str = "%s%s%s" %(type_str, type_delimeter, fmt_tmp)
          if not dihed_types.get(type_str):
-            print("Add dihed %s %f" %(type_str, dihed.phi))
+            print("Add dihed %s" %(type_str))
             dihed_types[type_str] = DihedType(itype, type_sort, dihed.orient)
             itype += 1
          dihed.type = dihed_types[type_str].type
@@ -256,7 +256,7 @@ if __name__ == "__main__":
             fmt_tmp = str(diff_dihed_theta_fmt %(phi_deg))
             type_str = "%s%s%s" %(type_str, type_delimeter, fmt_tmp)
          if not dihed_types.get(type_str):
-            print("Add dihed %s %f" %(type_str, dihed.phi))
+            print("Add dihed %s" %(type_str))
             dihed_types[type_str] = DihedType(itype, type_sort, dihed.orient)
             itype += 1
          dihed.type = dihed_types[type_str].type
